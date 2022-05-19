@@ -1,0 +1,50 @@
+﻿@using CBAOseno.Core.Enums
+@model CBAOseno.WebApi.ViewModels.AddGLCategoryViewModel
+
+@{
+    ViewData["Title"] = "Create GLCategory";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Create GLCategory</h1>
+</div>
+
+
+<div class="">
+     <form method="post">
+        <div asp-validation-summary = "All" class = "text-danger"></div>
+
+
+          <div class="text-right">
+     <a asp-area="" asp-controller="GLCategory" asp-action="Index" class="btn btn-primary">Back</a>
+     <button type="submit" class="btn btn-outline-primary">Create</button>
+    </div>
+    <br />  
+
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+       <label asp-for = "CategoryName" class="control-label">Category Name</label>
+      <input asp-for = "CategoryName" class="form-control" />
+      <span asp-validation-for = "CategoryName" class = "text-danger"></span>
+      </div>
+
+	 <div class="form-group col-md-6">
+      <label asp-for = "Status" class="control-label">Status</label>
+      <select asp-for = "Status" class = "form-control" asp-items="Html.GetEnumSelectList<Status>()">
+        <option value="">Please select</option>
+      </select>
+      <span asp-validation-for = "Status" class = "text-danger"></span>
+      </div>
+	</div>
+	
+
+    </form>
+    
+  
+
+</div>
+
+
+
+

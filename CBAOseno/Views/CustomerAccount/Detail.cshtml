@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CBAOseno.Core.Enums
+@using CBAOseno.Core.Models
+@model CBAOseno.WebApi.ViewModels.EditCustomerAccountViewModel
+
+@{
+    ViewData["Title"] = "Customer Accounts";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Customer Account Details</h1>
+</div>
+
+<div class="">
+     <form method="post">
+        <div asp-validation-summary = "All" class = "text-danger"></div>
+
+
+          <div class="text-right">
+     <a asp-area="" asp-controller="CustomerAccount" asp-action="Index" class="btn btn-primary">Back</a>
+    </div>
+    <br />  
+
+   <div class="form-row">
+       <div class="form-group col-md-2">
+       <label asp-for = "AccountId" class="control-label">Customer Account Id</label>
+      <input asp-for = "AccountId" class="form-control" readonly />
+      </div>
+      <div class="form-group col-md-5">
+       <label asp-for = "Customer" class="control-label">Customer</label>
+      <input asp-for = "Customer" class="form-control" readonly />
+      <span asp-validation-for = "Customer" class = "text-danger"></span>
+      </div>
+
+	 <div class="form-group col-md-5">
+      <label asp-for = "Status" class="control-label">Status</label>
+     <select asp-for = "Status" class = "form-control" asp-items="Html.GetEnumSelectList<Status>()" disabled>
+        <option value="@Status.Enabled"></option>
+      </select>
+      </div>
+	</div>
+	
+
+    </form>
+ </div>

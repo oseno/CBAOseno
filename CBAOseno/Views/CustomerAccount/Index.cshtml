@@ -1,0 +1,54 @@
+﻿@using CBAOseno.Core.Models
+@model IEnumerable<CustomerAccount>
+
+@{
+    ViewData["Title"] = "Customer Accounts";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">List of Customer Accounts</h1>
+</div>
+<div class="text-right">
+    
+     <a asp-area="" asp-controller="CustomerAccount" asp-action="Create" class="btn btn-primary">Add new customer</a>
+</div>
+<br />
+
+
+@if(Model.Count() > 0)
+    {
+<table class="table table-bordered table-striped" style='width:100%'>
+
+<thead class="thead-light">
+    <tr>
+        <th>Account Number</th>
+        <th>Customer</th>
+        <th>Status</th>
+        <th>Options</th>
+        
+    </tr>
+</thead>
+<tbody>
+    @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@item.AccountId</td>
+                        <td>@item.Customer</td>
+                        <td>@item.Status</td>
+                        <td>
+                            <a asp-controller="CustomerAccount" asp-action="Edit" asp-route-id="@item.AccountId" class="btn btn-outline-success">Edit</a>
+                           <a asp-controller="CustomerAccount" asp-action="Detail" asp-route-id="@item.AccountId" class="btn btn-outline-primary">Details</a>
+                           
+                        </td>
+                    </tr>
+                }
+   
+</tbody>
+</table>
+}
+    else
+    {
+        <p>No items created yet</p>
+    }
+

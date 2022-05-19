@@ -1,0 +1,49 @@
+﻿@using CBAOseno.Core.Enums
+@model CBAOseno.Core.Models.Teller
+
+@{
+    ViewData["Title"] = "Assign Till Account";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Assign Till Account</h1>
+</div>
+
+
+<div class="">
+     <form method="post">
+        <div asp-validation-summary = "All" class = "text-danger"></div>
+
+
+          <div class="text-right">
+     <a asp-area="" asp-controller="Teller" asp-action="Index" class="btn btn-primary">Back</a>
+     <button type="submit" class="btn btn-outline-primary">Assign</button>
+    </div>
+    <br />  
+
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+       <label asp-for = "User" class="control-label">First Name</label>
+      <input asp-for = "User" class="form-control" />
+      <span asp-validation-for = "User" class = "text-danger"></span>
+      </div>
+
+	 <div class="form-group col-md-6">
+   <label asp-for = "Teller" class="control-label">Till Account</label>
+      <select asp-for = "Teller" class = "form-control" asp-items="Html.GetEnumSelectList<Teller>()">
+        <option value="">Please select</option>
+      </select>
+      <span asp-validation-for = "Teller" class = "text-danger"></span>
+      </div>
+	</div>
+	
+</form>
+    
+  
+
+</div>
+
+
+
+

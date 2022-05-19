@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CBAOseno.Core.Enums
+@using CBAOseno.Core.Models
+@model CBAOseno.WebApi.ViewModels.EditGLCategoryViewModel
+
+@{
+    ViewData["Title"] = "GLCategory";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">GLCategory Details</h1>
+</div>
+
+<div class="">
+     <form method="post">
+        <div asp-validation-summary = "All" class = "text-danger"></div>
+
+
+          <div class="text-right">
+     <a asp-area="" asp-controller="GLCategory" asp-action="Index" class="btn btn-primary">Back</a>
+    </div>
+    <br />  
+
+   <div class="form-row">
+       <div class="form-group col-md-2">
+       <label asp-for = "CategoryId" class="control-label">GLCategory Id</label>
+      <input asp-for = "CategoryId" class="form-control" readonly />
+      </div>
+      <div class="form-group col-md-5">
+       <label asp-for = "CategoryName" class="control-label">Category Name</label>
+      <input asp-for = "CategoryName" class="form-control" readonly />
+      <span asp-validation-for = "CategoryName" class = "text-danger"></span>
+      </div>
+
+	 <div class="form-group col-md-5">
+        <label asp-for = "Status" class="control-label">Status</label>
+     <select asp-for = "Status" class = "form-control" asp-items="Html.GetEnumSelectList<Status>()" disabled>
+        <option value="@Status.Enabled"></option>
+      </select>  
+      </div>
+	</div>
+	
+    </form>
+ </div>

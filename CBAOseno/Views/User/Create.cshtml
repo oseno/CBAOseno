@@ -1,0 +1,91 @@
+﻿@using CBAOseno.Core.Enums
+@model CBAOseno.WebApi.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Create User</h1>
+</div>
+
+
+<div class="">
+     <form method="post">
+        <div asp-validation-summary = "All" class = "text-danger"></div>
+
+
+          <div class="text-right">
+     <a asp-area="" asp-controller="User" asp-action="Index" class="btn btn-primary">Back</a>
+     <button type="submit" class="btn btn-outline-primary">Create</button>
+    </div>
+    <br />  
+
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+       <label asp-for = "FirstName" class="control-label">First Name</label>
+      <input asp-for = "FirstName" class="form-control" />
+      <span asp-validation-for = "FirstName" class = "text-danger"></span>
+      </div>
+
+	 <div class="form-group col-md-6">
+       <label asp-for = "LastName" class="control-label">Last Name</label>
+      <input asp-for = "LastName" class="form-control" />
+      <span asp-validation-for = "LastName" class = "text-danger"></span>
+      </div>
+	</div>
+	
+	<div class="form-row">
+      <div class="form-group col-md-4">
+            <label asp-for = "Status" class="control-label">Status</label>
+      <select asp-for = "Status" class = "form-control" asp-items="Html.GetEnumSelectList<Status>()">
+        <option value="">Please select</option>
+      </select>
+      <span asp-validation-for = "Status" class = "text-danger"></span>
+       </div>
+
+		  <div class="form-group col-md-4">
+            <label asp-for = "Gender" class="control-label">Gender</label>
+      <select asp-for = "Gender" class = "form-control" asp-items="Html.GetEnumSelectList<Gender>()">
+        <option value="">Please select</option>
+      </select>
+      <span asp-validation-for = "Gender" class = "text-danger"></span>
+       </div>
+	   <!--<div class="form-group col-md-4">
+            <label asp-for = "roleName" class="control-label">Role</label>
+      <input asp-for = "roleName" class = "form-control">
+      <span asp-validation-for = "roleName" class = "text-danger"></span>
+       </div> -->
+	</div>
+
+
+<div class="form-row">
+      <div class="form-group col-md-4">
+       <label asp-for = "Email" class="control-label">Email</label>
+      <input asp-for = "Email" class="form-control" />
+      <span asp-validation-for = "Email" class = "text-danger"></span>
+      </div>
+
+	 <div class="form-group col-md-4">
+       <label asp-for = "Password" class="control-label">Password</label>
+      <input asp-for = "Password" class="form-control" />
+      <span asp-validation-for = "Password" class = "text-danger"></span>
+      </div>
+
+      <div class="form-group col-md-4">
+       <label asp-for = "ConfirmPassword" class="control-label">Confirm Password</label>
+      <input asp-for = "ConfirmPassword" class="form-control" />
+      <span asp-validation-for = "ConfirmPassword" class = "text-danger"></span>
+      </div>
+	</div>
+
+    </form>
+    
+  
+
+</div>
+
+
+
+

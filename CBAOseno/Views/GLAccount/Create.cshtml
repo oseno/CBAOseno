@@ -23,18 +23,25 @@
 
 
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
        <label asp-for = "GLAccountName" class="control-label">GLAccount Name</label>
       <input asp-for = "GLAccountName" class="form-control" />
       <span asp-validation-for = "GLAccountName" class = "text-danger"></span>
       </div>
 
-	 <div class="form-group col-md-6">
+	 <div class="form-group col-md-4">
        <label asp-for = "Status" class="control-label">Status</label>
       <select asp-for = "Status" class = "form-control" asp-items="Html.GetEnumSelectList<Status>()">
         <option value="">Please select</option>
       </select>
       <span asp-validation-for = "Status" class = "text-danger"></span>
+      </div>
+	  <div class="form-group col-md-4">
+      <label asp-for = "Categories" class="control-label">Main GL Category</label>
+      <select asp-for = "Categories" class = "form-control" asp-items="Html.GetEnumSelectList<Categories>()">
+        <option value="">Please select</option>
+      </select>
+      <span asp-validation-for = "Categories" class = "text-danger"></span>
       </div>
 	</div>
 	

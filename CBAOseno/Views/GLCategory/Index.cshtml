@@ -24,6 +24,8 @@
     <tr>
         <th>S/n</th>
         <th>Category Name</th>
+		<th>Main GL Category</th>
+		<th>Description</th>
         <th>Status</th>
         <th>Options</th>
         
@@ -35,6 +37,8 @@
                     <tr>
                         <td>@item.CategoryId</td>
                         <td>@item.CategoryName</td>
+						<td>@item.Categories</td>
+                        <td>@item.CategoryDescription</td>
                         <td>@item.Status</td>
                         <td>
                             <a asp-controller="GLCategory" asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-outline-success">Edit</a>
@@ -49,6 +53,6 @@
 }
     else
     {
-        <p>No items created yet</p>
+        <p>No categories created yet</p>
     }
 

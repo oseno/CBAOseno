@@ -12,8 +12,14 @@ namespace CBAOseno.WebApi.ViewModels
         public int GLAccountId { get; set; }
 
         public string GLAccountName { get; set; }
+		
+		public double GLAccountBalance { get; set; }
+		
+		public long GLAccountCode { get; set; }
 
         public Status Status { get; set; }
+		
+		public Categories Categories { get; set; }
 
         public GLCategory GLCategory { get; set; }
     }

@@ -22,12 +22,11 @@
 
 <thead class="thead-light">
     <tr>
-        <th>S/n</th>
+        <th>Customer Id</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
         <th>Gender</th>
-        <th>Status</th>
         <th>Options</th>
         
     </tr>
@@ -36,16 +35,15 @@
     @foreach(var item in Model)
                 {
                     <tr>
-                        <td>@item.CustomerId</td>
+                        <td>@item.NewCustomerId</td>
                         <td>@item.FirstName</td>
                         <td>@item.LastName</td>
                         <td>@item.Email</td>
                         <td>@item.Gender</td>
-                        <td>@item.Status</td>
                         <td>
                             <a asp-controller="Customer" asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-outline-success">Edit</a>
                            <a asp-controller="Customer" asp-action="Detail" asp-route-id="@item.CustomerId" class="btn btn-outline-primary">Details</a>
-                           
+                           <a asp-controller="Customer" asp-action="Delete" asp-route-id="@item.CustomerId" class="btn btn-outline-danger" type = "submit">Delete</a>
                         </td>
                     </tr>
                 }

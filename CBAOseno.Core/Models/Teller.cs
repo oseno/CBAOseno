@@ -9,18 +9,16 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CBAOseno.Core.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class Teller
     {
         [Required]
-        public string FirstName { get; set; }
+        public int UserId { get; set; }
+
+        public ApplicationUser User { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public int GLAccountId { get; set; }
 
-        [Required]
-        public Gender Gender { get; set; }
-
-        [Required]
-        public Status Status { get; set; }
+        public GLAccount GLAccount { get; set; }
     }
 }

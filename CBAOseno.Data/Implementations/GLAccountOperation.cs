@@ -58,5 +58,66 @@ namespace CBAOseno.Data.Implementations
             var gLAccounts = db.GLAccount.ToList();
             return gLAccounts;
         }
+		
+		public long CreateGlCategoryCode(GLAccount glAccount)
+        {
+            long newGlCode = 10;
+            Categories mainGl = glAccount.Categories;
+
+            var categoryList = db.GLAccount.ToList().OrderByDescending(c=>c.GLAccountId);
+
+            if (categoryList.Any())
+            {
+                var lastGlCode = categoryList.First().GLAccountCode;
+                var stringLastGlCode = lastGlCode.ToString();
+                //Get the main GlCode
+
+                int endIndex = stringLastGlCode.Length - 3;
+                string mainGlCode = stringLastGlCode.Substring(3, endIndex);
+
+                lastGlCode = Convert.ToInt64(mainGlCode);
+
+                newGlCode = lastGlCode + 10;
+                
+            }
+
+            string stringGlCode = newGlCode.ToString();
+            long finalGlCode;
+
+            switch (mainGl)
+            {
+                case Categories.Asset:
+                    finalGlCode = Convert.ToInt64(MainCategoryCodes.AssetCode + stringGlCode);
+                    break;
+                case Categories.Capital:
+                    finalGlCode = Convert.ToInt64(MainCategoryCodes.CapitalCode + stringGlCode);
+                    break;
+                case Categories.Expense:
+                    finalGlCode = Convert.ToInt64(MainCategoryCodes.ExpenseCode + stringGlCode);
+                    break;
+                case Categories.Income:
+                    finalGlCode = Convert.ToInt64(MainCategoryCodes.IncomeCode + stringGlCode);
+                    break;
+                case Categories.Liability:
+                    finalGlCode = Convert.ToInt64(MainCategoryCodes.LiabilityCode + stringGlCode);
+                    break;
+                default:
+                    finalGlCode = 000;
+                    break;
+            }
+
+            return finalGlCode;
+        }
+
+        
+
+    public class MainCategoryCodes
+    {
+        public static string AssetCode = "100";
+        public static string LiabilityCode = "200";
+        public static string CapitalCode = "300";
+        public static string IncomeCode = "400";
+        public static string ExpenseCode = "500";
+    }
     }
 }

@@ -12,6 +12,7 @@ namespace CBAOseno.Core.Models
     {
         [Key]
         public int CustomerId { get; set; }
+		public int NewCustomerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Gender Gender { get; set; }

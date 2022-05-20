@@ -42,9 +42,11 @@ namespace CBAOseno.WebApi.Controllers
                     CategoryId = model.CategoryId,
                     CategoryName = model.CategoryName,
                     Status = model.Status,
+                    CategoryDescription = model.CategoryDescription,
+					Categories = model.Categories,
+                    //CategoryCode = _operations.CreateGlCategoryCode(gLCategory),
                     //GLCategoryAccount = model.GLCategoryAccount,
                 };
-
                 _operations.Save(newGLCategory);
                 //return RedirectToAction("index", new { id = newUser.Id });
                 return RedirectToAction("index", "GLCategory", new { area = "" });
@@ -62,6 +64,9 @@ namespace CBAOseno.WebApi.Controllers
                 //GLCategoryId = gLCategory.GLCategoryId,
                 CategoryName = gLCategory.CategoryName,
                 Status = gLCategory.Status,
+				CategoryCode = gLCategory.CategoryCode,
+				CategoryDescription = gLCategory.CategoryDescription,
+				Categories = gLCategory.Categories,
             };
             return View(editUserViewModel);
         }
@@ -75,6 +80,7 @@ namespace CBAOseno.WebApi.Controllers
                 //GLCategoryId = gLCategory.GLCategoryId,
                 CategoryName = gLCategory.CategoryName,
                 Status = gLCategory.Status,
+				CategoryDescription = gLCategory.CategoryDescription,
             };
             return View(editUserViewModel);
         }
@@ -89,6 +95,7 @@ namespace CBAOseno.WebApi.Controllers
                 //gLCategory.GLCategoryId = model.GLCategoryId;
                 gLCategory.CategoryName = model.CategoryName;
                 gLCategory.Status = model.Status;
+				gLCategory.CategoryDescription = model.CategoryDescription;
 
                 GLCategory updatedGLCategory = _operations.UpdateGLCategory(gLCategory);
 

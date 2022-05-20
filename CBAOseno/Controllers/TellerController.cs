@@ -8,5 +8,26 @@ namespace CBAOseno.WebApi.Controllers
         {
             return View();
         }
+		
+		[HttpGet]
+		public IActionResult Assign()
+        {
+            return View();
+        }
+		/*[HttpPost]
+		public IActionResult Assign()
+        {
+            return View();
+        }*/
+		[HttpGet]
+		public IActionResult Unassign()
+        {
+            return View();
+        }
+		/*[HttpPost]
+		public IActionResult Unassign()
+        {
+            return View();
+        }*/
     }
 }

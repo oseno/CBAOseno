@@ -1,17 +1,17 @@
 ﻿@using CBAOseno.Core.Models
-@model IEnumerable<Customer>
+@model IEnumerable<Teller>
 
 @{
-    ViewData["Title"] = "Customers";
+    ViewData["Title"] = "Till account";
 }
 
 
 <div class="text-center">
-    <h1 class="display-4">List of Customers</h1>
+    <h1 class="display-4">List of Tellers</h1>
 </div>
 <div class="text-right">
     
-     <a asp-area="" asp-controller="Customer" asp-action="Create" class="btn btn-primary">Add new customer</a>
+     <a asp-area="" asp-controller="Teller" asp-action="Assign" class="btn btn-primary">Assign new Till</a>
 </div>
 <br />
 
@@ -23,11 +23,10 @@
 <thead class="thead-light">
     <tr>
         <th>S/n</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Gender</th>
-        <th>Status</th>
+        <th>Full Name</th>
+        <th>Account Name</th>
+        <th>Account Number</th>
+        <th>Account Balance</th>
         <th>Options</th>
         
     </tr>
@@ -36,15 +35,9 @@
     @foreach(var item in Model)
                 {
                     <tr>
-                        <td>@item.CustomerId</td>
-                        <td>@item.FirstName</td>
-                        <td>@item.LastName</td>
-                        <td>@item.Email</td>
-                        <td>@item.Gender</td>
-                        <td>@item.Status</td>
+                        <td>@item.UserId</td>
                         <td>
-                            <a asp-controller="Customer" asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-outline-success">Edit</a>
-                           <a asp-controller="Customer" asp-action="Detail" asp-route-id="@item.CustomerId" class="btn btn-outline-primary">Details</a>
+                            <a asp-controller="Teller" asp-action="Unassign" asp-route-id="@item.UserId" class="btn btn-outline-danger">Unassign</a>
                            
                         </td>
                     </tr>

@@ -25,7 +25,12 @@ namespace CBAOseno.WebApi.Controllers
             var customers = _operations.GetAllCustomers();
             return View(customers);
         }
-
+		[HttpPost]
+		public IActionResult Delete(long id)
+		{
+			Customer customer = _operations.Delete(id);
+			return RedirectToAction("index", "customer", new { area = "" });
+		}
         [HttpGet]
         public IActionResult Create()
         {
@@ -40,6 +45,7 @@ namespace CBAOseno.WebApi.Controllers
                 Customer newCustomer = new()
                 {
                     CustomerId = model.CustomerId,
+					NewCustomerId = _operations.GenerateCustomerId(model.NewCustomerId),
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     Gender = model.Gender,

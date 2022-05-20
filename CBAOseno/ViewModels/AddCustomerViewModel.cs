@@ -18,6 +18,7 @@ namespace CBAOseno.WebApi.ViewModels
         public Gender Gender { get; set; }
         public string Email { get; set; }
         public Status Status { get; set; }
+		public int NewCustomerId { get; set; }
         public ICollection<CustomerAccount> CustomerAccount { get; set; }
     }
 }

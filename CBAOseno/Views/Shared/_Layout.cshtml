@@ -21,9 +21,9 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                       <!-- <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        </li> -->
                       
                         @if (signInManager.IsSignedIn(User))
                         {
@@ -47,9 +47,16 @@
                     </a>
                     </div>
                     </li>
-                    <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Teller" asp-action="Index">Teller</a>
-                     </li>
+					 <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Teller
+                        </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Teller" asp-action="Index">Till</a>
+                        
+                        </div>
+                        </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,7 +71,23 @@
                         </a>
                         </div>
                         </li>
- 
+						<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Configuration
+                        </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" asp-controller="Customer" asp-action="Index">
+                        Current Account
+                        </a>
+                        <a class="dropdown-item" asp-controller="CustomerAccount" asp-action="Index">
+                            Savings Account
+                        </a>
+						<a class="dropdown-item" asp-controller="Customer" asp-action="Index">
+                        Loan Account
+                        </a>
+                        </div>
+                        </li>
 
                          <li class="nav-item">
                              <form method="post" asp-controller="User" asp-action="Logout">

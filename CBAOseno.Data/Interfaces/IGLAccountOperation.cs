@@ -16,6 +16,6 @@ namespace CBAOseno.Data.Interfaces
         GLAccount UpdateGLAccount(GLAccount userChanges);
         IEnumerable<GLAccount> GetAllGLAccounts();
         GLAccount GetRoles(GLAccount user);
-    
+		long CreateGlCategoryCode(GLAccount glAccount);
     }
 }

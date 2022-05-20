@@ -16,6 +16,13 @@ namespace CBAOseno.Data.Implementations
         {
             this.db = db;
         }
+		public int GenerateCustomerId(int id)
+        {
+			var now = DateTime.Now;
+			var zeroDate = DateTime.MinValue.AddHours(now.Hour).AddMinutes(now.Minute).AddSeconds(now.Second).AddMilliseconds(now.Millisecond);
+			int newCustomerId = (int)(zeroDate.Ticks / 10000);
+            return newCustomerId;
+        }
         public Customer Delete(long id)
         {
             Customer customer = db.Customer.Find(id);

@@ -33,7 +33,7 @@ namespace CBAOseno.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(AddGLAccountViewModel model)
+        public IActionResult Create(AddGLAccountViewModel model, GLAccount glAccount)
         {
             if (ModelState.IsValid)
             {
@@ -41,7 +41,10 @@ namespace CBAOseno.WebApi.Controllers
                 {
                     GLAccountId = model.GLAccountId,
                     GLAccountName = model.GLAccountName,
+					GLAccountBalance = model.GLAccountBalance,
+					GLAccountCode = _operations.CreateGlCategoryCode(glAccount),
                     Status = model.Status,
+					Categories = model.Categories,
                     //GLAccountAccount = model.GLAccountAccount,
                 };
 
@@ -62,6 +65,9 @@ namespace CBAOseno.WebApi.Controllers
                 //GLAccountId = gLAccount.GLAccountId,
                 GLAccountName = gLAccount.GLAccountName,
                 Status = gLAccount.Status,
+				GLAccountCode = gLAccount.GLAccountCode,
+				Categories = gLAccount.Categories,
+				GLAccountBalance = gLAccount.GLAccountBalance,
             };
             return View(editUserViewModel);
         }

@@ -22,8 +22,11 @@
 
 <thead class="thead-light">
     <tr>
-        <th>GL Account Number</th>
+        <th>S/n</th>
         <th>GL Account Name</th>
+		<th>Account Balance</th>
+		<th>Code</th>
+		<th>Main GL Category</th>
         <th>Status</th>
         <th>Options</th>
         
@@ -35,6 +38,9 @@
                     <tr>
                         <td>@item.GLAccountId</td>
                         <td>@item.GLAccountName</td>
+						<td>@item.GLAccountBalance</td>
+						<td>@item.GLAccountCode</td>
+						<td>@item.Categories</td>
                         <td>@item.Status</td>
                         <td>
                             <a asp-controller="GLAccount" asp-action="Edit" asp-route-id="@item.GLAccountId" class="btn btn-outline-success">Edit</a>

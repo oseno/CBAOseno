@@ -16,6 +16,6 @@ namespace CBAOseno.Data.Interfaces
         GLCategory UpdateGLCategory(GLCategory userChanges);
         IEnumerable<GLCategory> GetAllGLCategorys();
         GLCategory GetRoles(GLCategory user);
-     
+		//long CreateGlCategoryCode(GLCategory glCategory);
     }
 }

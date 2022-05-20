@@ -22,9 +22,13 @@
 
 <thead class="thead-light">
     <tr>
+		<th>S/n</th>
         <th>Account Number</th>
-        <th>Customer</th>
-        <th>Status</th>
+        <th>Customer ID</th>
+		<th>Account Name</th>
+		<th>Account Status</th>
+        <th>Account Balance</th>
+		<th>Account Type</th>
         <th>Options</th>
         
     </tr>
@@ -34,12 +38,16 @@
                 {
                     <tr>
                         <td>@item.AccountId</td>
-                        <td>@item.Customer</td>
-                        <td>@item.Status</td>
+						<td>@item.AccountNumber</td>
+                        <td>Customer.NewCustomerId</td>
+						<td>@item.AccountName</td>
+                        <td>@item.AccountStatus</td>
+						<td>@item.AccountBalance</td>
+						<td>@item.AccountType</td>
                         <td>
                             <a asp-controller="CustomerAccount" asp-action="Edit" asp-route-id="@item.AccountId" class="btn btn-outline-success">Edit</a>
                            <a asp-controller="CustomerAccount" asp-action="Detail" asp-route-id="@item.AccountId" class="btn btn-outline-primary">Details</a>
-                           
+                           <a asp-controller="CustomerAccount" asp-action="Detail" asp-route-id="@item.AccountId" class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
                 }

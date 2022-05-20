@@ -23,24 +23,45 @@
     <br />  
 
    <div class="form-row">
-       <div class="form-group col-md-2">
-       <label asp-for = "AccountId" class="control-label">Customer Account Id</label>
+       <div class="form-group col-md-3">
+       <label asp-for = "AccountId" class="control-label">Account Id</label>
       <input asp-for = "AccountId" class="form-control" readonly />
       </div>
-      <div class="form-group col-md-5">
-       <label asp-for = "Customer" class="control-label">Customer</label>
-      <input asp-for = "Customer" class="form-control" readonly />
-      <span asp-validation-for = "Customer" class = "text-danger"></span>
+      <div class="form-group col-md-3">
+       <label asp-for = "AccountNumber" class="control-label">Account Number</label>
+      <input asp-for = "AccountNumber" class="form-control" readonly />
+      <span asp-validation-for = "AccountNumber" class = "text-danger"></span>
       </div>
-
-	 <div class="form-group col-md-5">
-      <label asp-for = "Status" class="control-label">Status</label>
-     <select asp-for = "Status" class = "form-control" asp-items="Html.GetEnumSelectList<Status>()" disabled>
-        <option value="@Status.Enabled"></option>
+		<!--<div class="form-group col-md-3">
+       <label asp-for = "Customer.NewCustomerId" class="control-label">Customer Id</label>
+      <input asp-for = "Customer.NewCustomerId" class="form-control" readonly />
+      <span asp-validation-for = "Customer.NewCustomerId" class = "text-danger"></span>
+      </div>-->
+	 <div class="form-group col-md-3">
+      <label asp-for = "AccountStatus" class="control-label">Account Status</label>
+     <select asp-for = "AccountStatus" class = "form-control" asp-items="Html.GetEnumSelectList<AccountStatus>()" disabled>
+        <option value="@Model.AccountStatus"></option>
       </select>
       </div>
 	</div>
-	
+	<div class="form-row">
+       <div class="form-group col-md-4">
+       <label asp-for = "AccountName" class="control-label">Account Name</label>
+      <input asp-for = "AccountName" class="form-control" readonly />
+	  <span asp-validation-for = "AccountName" class = "text-danger"></span>
+      </div>
+      <div class="form-group col-md-4">
+       <label asp-for = "AccountBalance" class="control-label">Account Balance</label>
+      <input asp-for = "AccountBalance" class="form-control" readonly />
+      <span asp-validation-for = "AccountBalance" class = "text-danger"></span>
+      </div>
 
+	 <div class="form-group col-md-4">
+      <label asp-for = "AccountType" class="control-label">Account Type</label>
+     <select asp-for = "AccountType" class = "form-control" asp-items="Html.GetEnumSelectList<AccountType>()" disabled>
+        <option value="@Model.AccountType"></option>
+      </select>
+      </div>
+	</div>
     </form>
  </div>

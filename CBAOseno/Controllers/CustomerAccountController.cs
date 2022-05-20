@@ -40,9 +40,12 @@ namespace CBAOseno.WebApi.Controllers
                 CustomerAccount newCustomerAccount = new()
                 {
                     AccountId = model.AccountId,
-                    Customer = model.Customer,
-                    Status = model.Status,
-                    //CustomerAccountAccount = model.CustomerAccountAccount,
+					AccountType = model.AccountType,
+                    //Customer = model.Customer.NewCustomerId,
+                    AccountStatus = model.AccountStatus,
+					AccountName = model.AccountName,
+					AccountBalance = model.AccountBalance,
+                    //AccountNumber = model.AccountNumber,
                 };
 
                 _operations.Save(newCustomerAccount);
@@ -60,8 +63,11 @@ namespace CBAOseno.WebApi.Controllers
             EditCustomerAccountViewModel editUserViewModel = new EditCustomerAccountViewModel()
             {
                 //CustomerAccountId = customerAccount.CustomerAccountId,
-                Customer = customerAccount.Customer,
-                Status = customerAccount.Status,
+                AccountType = customerAccount.AccountType,
+                    //Customer = customerAccount.Customer.NewCustomerId,
+                    AccountStatus = customerAccount.AccountStatus,
+					AccountName = customerAccount.AccountName,
+					AccountBalance = customerAccount.AccountBalance,
             };
             return View(editUserViewModel);
         }
@@ -73,8 +79,8 @@ namespace CBAOseno.WebApi.Controllers
             EditCustomerAccountViewModel editUserViewModel = new EditCustomerAccountViewModel()
             {
                 //CustomerAccountId = customerAccount.CustomerAccountId,
-                Customer = customerAccount.Customer,
-                Status = customerAccount.Status,
+                AccountName = customerAccount.AccountName,
+                AccountStatus = customerAccount.AccountStatus,
             };
             return View(editUserViewModel);
         }
@@ -87,8 +93,8 @@ namespace CBAOseno.WebApi.Controllers
                 CustomerAccount customerAccount = _operations.RetrieveById(model.Id);
                 //Console.WriteLine(model.Id);
                 //customerAccount.CustomerAccountId = model.CustomerAccountId;
-                customerAccount.Customer = model.Customer;
-                customerAccount.Status = model.Status;
+                customerAccount.AccountName = model.AccountName;
+                customerAccount.AccountStatus = model.AccountStatus;
 
                 CustomerAccount updatedCustomerAccount = _operations.UpdateCustomerAccount(customerAccount);
 

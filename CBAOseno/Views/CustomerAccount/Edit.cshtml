@@ -25,21 +25,21 @@
 
      <div class="form-row">
        <div class="form-group col-md-2">
-       <label asp-for = "Id" class="control-label">Account Number</label>
-      <input asp-for = "Id" class="form-control" readonly />
+       <label asp-for = "AccountNumber" class="control-label">Account Number</label>
+      <input asp-for = "AccountNumber" class="form-control" readonly />
       </div>
       <div class="form-group col-md-5">
-       <label asp-for = "Customer" class="control-label">Customer</label>
-      <input asp-for = "Customer" class="form-control" />
-      <span asp-validation-for = "Customer" class = "text-danger"></span>
+       <label asp-for = "AccountName" class="control-label">Account Name</label>
+      <input asp-for = "AccountName" class="form-control" />
+      <span asp-validation-for = "AccountName" class = "text-danger"></span>
       </div>
 
 	 <div class="form-group col-md-5">
-       <label asp-for = "Status" class="control-label">Status</label>
-      <select asp-for = "Status" class = "form-control" asp-items="Html.GetEnumSelectList<Status>()">
+       <label asp-for = "AccountStatus" class="control-label">Account Status</label>
+      <select asp-for = "AccountStatus" class = "form-control" asp-items="Html.GetEnumSelectList<AccountStatus>()">
         <option value="">Please select</option>
       </select>
-      <span asp-validation-for = "Status" class = "text-danger"></span>
+      <span asp-validation-for = "AccountStatus" class = "text-danger"></span>
       </div>
 	</div>
 	

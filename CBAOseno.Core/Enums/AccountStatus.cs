@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace CBAOseno.Core.Enums
 {
-    public enum Accounts
+    public enum AccountStatus
     {
-        Current = 1,
-        Savings = 2,
-        Loan = 3
+        Closed = 1,
+        Open = 2
     }
 }

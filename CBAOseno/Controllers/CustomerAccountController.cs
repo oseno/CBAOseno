@@ -41,11 +41,12 @@ namespace CBAOseno.WebApi.Controllers
                 {
                     AccountId = model.AccountId,
 					AccountType = model.AccountType,
-                    //Customer = model.Customer.NewCustomerId,
+                    NewCustomerId = model.NewCustomerId,
+					//CustomerId =  new SelectList(db.Customer, "NewCustomerId","FirstName","LastName",model.CustomerId),
                     AccountStatus = model.AccountStatus,
 					AccountName = model.AccountName,
 					AccountBalance = model.AccountBalance,
-                    //AccountNumber = model.AccountNumber,
+                    //AccountNumber = _operations.CreateAccountNumber(customerAccount.AccountType, customerAccount),
                 };
 
                 _operations.Save(newCustomerAccount);

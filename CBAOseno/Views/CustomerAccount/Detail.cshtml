@@ -32,11 +32,11 @@
       <input asp-for = "AccountNumber" class="form-control" readonly />
       <span asp-validation-for = "AccountNumber" class = "text-danger"></span>
       </div>
-		<!--<div class="form-group col-md-3">
-       <label asp-for = "Customer.NewCustomerId" class="control-label">Customer Id</label>
-      <input asp-for = "Customer.NewCustomerId" class="form-control" readonly />
-      <span asp-validation-for = "Customer.NewCustomerId" class = "text-danger"></span>
-      </div>-->
+		<div class="form-group col-md-3">
+       <label asp-for = "NewCustomerId" class="control-label">Customer Id</label>
+      <input asp-for = "NewCustomerId" class="form-control" readonly />
+      <span asp-validation-for = "NewCustomerId" class = "text-danger"></span>
+      </div>
 	 <div class="form-group col-md-3">
       <label asp-for = "AccountStatus" class="control-label">Account Status</label>
      <select asp-for = "AccountStatus" class = "form-control" asp-items="Html.GetEnumSelectList<AccountStatus>()" disabled>

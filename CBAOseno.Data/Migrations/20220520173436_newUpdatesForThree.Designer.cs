@@ -4,14 +4,16 @@ using CBAOseno.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CBAOseno.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220520173436_newUpdatesForThree")]
+    partial class newUpdatesForThree
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,12 +183,12 @@ namespace CBAOseno.Data.Migrations
                     b.Property<int>("AccountType")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NewCustomerIdCustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.HasKey("AccountId");
 
-                    b.HasIndex("NewCustomerIdCustomerId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("CustomerAccount");
                 });
@@ -385,11 +387,9 @@ namespace CBAOseno.Data.Migrations
 
             modelBuilder.Entity("CBAOseno.Core.Models.CustomerAccount", b =>
                 {
-                    b.HasOne("CBAOseno.Core.Models.Customer", "NewCustomerId")
+                    b.HasOne("CBAOseno.Core.Models.Customer", null)
                         .WithMany("CustomerAccount")
-                        .HasForeignKey("NewCustomerIdCustomerId");
-
-                    b.Navigation("NewCustomerId");
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("CBAOseno.Core.Models.GLAccount", b =>

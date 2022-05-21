@@ -16,6 +16,29 @@ namespace CBAOseno.Data.Implementations
         {
             this.db = db;
         }
+		/*public string CreateAccountNumber(AccountType accountType, CustomerAccount customerAccount)
+        {
+            
+            string longId = String.Format("00{0}", r.ToString("D9"));
+            if (accountType == AccountType.Savings)
+            {
+                string accountNumber = AccountTypes.SavingsId + longId;
+                return accountNumber.ToString();
+            }
+
+            if (accountType == AccountType.Current)
+            {
+                string accountNumber = AccountTypes.CurrentId + longId;
+                return accountNumber.ToString();
+            }
+            if (accountType == AccountType.Loan)
+            {
+                string accountNumber = AccountTypes.LoanId + longId;
+                return accountNumber.ToString();
+            }
+
+            return "";
+        }*/
         public CustomerAccount Delete(long id)
         {
             CustomerAccount customerAccount = db.CustomerAccount.Find(id);
@@ -58,5 +81,13 @@ namespace CBAOseno.Data.Implementations
             var customerAccounts = db.CustomerAccount.ToList();
             return customerAccounts;
         }
+		 public static class AccountTypes
+    {
+        public static long SavingsId = 10000000;
+        public static long CurrentId = 20000000;
+        public static long LoanId = 30000000;
+
+        
+    }
     }
 }

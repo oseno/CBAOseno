@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CBAOseno.Core.Models;
+using CBAOseno.Core.Enums;
 using System.Threading.Tasks;
 
 namespace CBAOseno.Data.Interfaces
@@ -16,6 +18,6 @@ namespace CBAOseno.Data.Interfaces
         CustomerAccount UpdateCustomerAccount(CustomerAccount userChanges);
         IEnumerable<CustomerAccount> GetAllCustomerAccounts();
         CustomerAccount GetRoles(CustomerAccount user);
-       
+       //string CreateAccountNumber(AccountType accountType, CustomerAccount customerAccount);
     }
 }

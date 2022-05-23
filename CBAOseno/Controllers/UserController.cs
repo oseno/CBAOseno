@@ -409,31 +409,31 @@ namespace CBAOseno.WebApi.Controllers
         }
 		
 		//might delete, reset password
-		[HttpPost]
-        public async Task<IActionResult> EditUserPassword(EditUserViewModel model)
-        {
-            /*var user = await userManager.FindByIdAsync(model.Id);
+		//[HttpPost]
+        /* public async Task<IActionResult> EditUserPassword(EditUserViewModel model)
+         {
+             var user = await userManager.FindByIdAsync(model.Id);
 
-            var password = iserviceImplement.GeneratePassword();
-            var passHasher = new PasswordHasher<ApplicationUser>();
-            var hashed = passHasher.HashPassword(user, password);
+             var password = iserviceImplement.GeneratePassword();
+             var passHasher = new PasswordHasher<ApplicationUser>();
+             var hashed = passHasher.HashPassword(user, password);
 
-            await userManager.RemovePasswordAsync(user);
-            var result = await userManager.AddPasswordAsync(user, hashed);
+             await userManager.RemovePasswordAsync(user);
+             var result = await userManager.AddPasswordAsync(user, hashed);
 
-            var mail = new MailRequest
-            {
-                ToEmail = model.Email,
-                Subject = model.LastName,
-                Body = password,
-            };
+             var mail = new MailRequest
+             {
+                 ToEmail = model.Email,
+                 Subject = model.LastName,
+                 Body = password,
+             };
 
-            if (result.Succeeded)
-            {
-                await iserviceImplement.SendEmailAsync(mail);
-                return RedirectToAction("index", "user");
-            }*/
-            return View();
-        }
+             if (result.Succeeded)
+             {
+                 await iserviceImplement.SendEmailAsync(mail);
+                 return RedirectToAction("index", "user");
+             }
+             return View();
+         }*/
     }
 }

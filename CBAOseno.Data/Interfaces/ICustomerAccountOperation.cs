@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CBAOseno.Core.Models;
 using CBAOseno.Core.Enums;
 using System.Threading.Tasks;
 

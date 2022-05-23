@@ -11,14 +11,16 @@ namespace CBAOseno.Core.Models
 {
     public class Teller
     {
+		public int Id { get; set; }
+
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public ApplicationUser User { get; set; }
 
         [Required]
         public int GLAccountId { get; set; }
 
-        public GLAccount GLAccount { get; set; }
+        public virtual GLAccount GLAccount { get; set; }
     }
 }

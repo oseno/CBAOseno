@@ -6,64 +6,185 @@ using CBAOseno.Core.Models;
 using CBAOseno.Core.Enums;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+using CBAOseno.WebApi.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using CBAOseno.Services.Interfaces;
+using CBAOseno.Services.Implementations;
 
 namespace CBAOseno.Data.Implementations
 {
-    public class Operations : IOperations
+    public class TellerDao : ITellerDao
     {
-        private readonly ApplicationDbContext db;
-        public Operations(ApplicationDbContext db)
+        private readonly ApplicationDbContext context;
+		private readonly UserManager<ApplicationUser> userManager;
+        public TellerDao(ApplicationDbContext _context, UserManager<ApplicationUser> _userManager)
         {
-            this.db = db;
+            context = _context;
+			userManager = _userManager;
         }
-		public int GenerateCustomerId(int id)
+		  public async Task<List<Teller>> GetAllTellerDetails()
         {
-			var now = DateTime.Now;
-			var zeroDate = DateTime.MinValue.AddHours(now.Hour).AddMinutes(now.Minute).AddSeconds(now.Second).AddMilliseconds(now.Millisecond);
-			int newCustomerId = (int)(zeroDate.Ticks / 10000);
-            return newCustomerId;
-        }
-        public Customer Delete(long id)
-        {
-            Customer customer = db.Customer.Find(id);
-            if (customer != null)
+            var output = new List<Teller>();
+            var tillsWithTellers = GetDbTellers();
+            var tellersWithoutTill = await GetTellersWithNoTills();
+            Thread.Sleep(7000);
+            //adding all tellers without a till account
+            foreach (var teller in tellersWithoutTill)
             {
-                db.Customer.Remove(customer);
-                db.SaveChanges();
+                output.Add(new Teller { UserId = teller.Id, GLAccountId = 0 });
             }
-            return customer;
+            //adding all tellers with a till account
+            output.AddRange(tillsWithTellers);
+            return output;
         }
 
-        public Customer RetrieveById(int id)
+        public async Task<List<ApplicationUser>> GetAllTellers()
         {
-            Customer customer = db.Customer.Find(id);
-            return customer;
+            var users = userManager.Users;
+
+            List<ApplicationUser> tellers = new List<ApplicationUser>();
+
+            //Thread.Sleep(4000);
+            foreach (var user in users)
+            {
+                var usersInRole = await userManager.IsInRoleAsync(user, "teller");
+                if (usersInRole)
+                {
+                    //Thread.Sleep(4000);
+                    tellers.Add(user);
+                }
+
+				//var tills = context.GLAccount.Where(c => c.GLAccountName.ToLower().Contains("till")).ToList();
+				//return tills;
+                //var isInTellerRole = userManager.IsInRoleAsync(user, "teller");
+                //if (isInTellerRole)
+                //{
+                //  tellers.Add(user);
+                //}
+            }
+
+            return (tellers);
         }
 
-        public Customer Save(Customer customer)
+        public List<Teller> GetDbTellers()
         {
-            db.Customer.Add(customer);
-            db.SaveChanges();
-            return customer;
+            return context.Teller.ToList();
         }
 
-        public Customer GetRoles(Customer customer)
+        public async Task<List<ApplicationUser>> GetTellersWithNoTills()
         {
-            throw new NotImplementedException();
+            var tellers = await GetAllTellers();
+            var tillAccounts = context.Teller.ToList();
+            var result = new List<ApplicationUser>();
+
+            foreach (var teller in tellers)
+            {
+                if (!tillAccounts.Any(c => c.UserId == teller.Id))
+                {
+                    result.Add(teller);
+                }
+            }
+
+
+            return result;
+        }
+		//gl implementation
+		 public bool AnyGlIn(Categories mainCategory)
+        {
+            return context.GLAccount.Any(gl => gl.GLCategory.Categories == mainCategory);
         }
 
-        public Customer UpdateCustomer(Customer customerChanges)
+        public List<GLAccount> GetAll()
         {
-            var customer = db.Customer.Attach(customerChanges);
-            customer.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            db.SaveChanges();
-            return customerChanges;
+            var glAccountList = context.GLAccount.ToList();
+            return glAccountList;
         }
 
-        public IEnumerable<Customer> GetAllCustomers()
+        public List<GLAccount> GetAllAssetAccounts()
         {
-            var customers = db.Customer.ToList();
-            return customers;
+            var output = context.GLAccount.Where(c => c.GLCategory.Categories == Categories.Asset).ToList();
+
+            return output;
         }
+
+        public List<GLAccount> GetAllExpenseAccounts()
+        {
+            var output = context.GLAccount.Where(c => c.GLCategory.Categories == Categories.Expense).ToList();
+
+            return output;
+        }
+
+        public List<GLAccount> GetAllIncomeAccounts()
+        {
+            var output = context.GLAccount.Where(c => c.GLCategory.Categories == Categories.Income).ToList();
+
+            return output;
+        }
+
+        public List<GLAccount> GetAllLiabilityAccounts()
+        {
+            var output = context.GLAccount.Where(c => c.GLCategory.Categories == Categories.Liability).ToList();
+
+            return output;
+        }
+
+        public List<GLAccount> GetAllTills()
+        {
+            var tills = context.GLAccount.Where(c => c.GLAccountName.ToLower().Contains("till")).ToList();
+            return tills;
+        }
+
+        public GLAccount GetById(int Id)
+        {
+            var glAccount = context.GLAccount.SingleOrDefault(c => c.GLAccountId == Id);
+
+            return glAccount;
+        }
+
+        public List<GLAccount> GetByMainCategory(Categories mainCategory)
+        {
+            return context.GLAccount.Where(a => a.GLCategory.Categories == mainCategory).ToList();
+
+        }
+
+        public GLAccount GetByName(string Name)
+        {
+            var glAccountByName = context.GLAccount.SingleOrDefault(c => c.GLAccountName == Name);
+
+            return glAccountByName;
+        }
+
+        public GLAccount GetLastGlIn(Categories mainCategory)
+        {
+            return context.GLAccount.Where(g => g.GLCategory.Categories == mainCategory).OrderByDescending(a => a.GLAccountId).First();
+        }
+
+        public List<GLAccount> GetTillsWithoutTellers()
+        {
+            var output = new List<GLAccount>();
+            var allTills = GetAllTills();
+            var tillAccount = context.Teller.ToList();
+
+            foreach (var till in allTills)
+            {
+                if (tillAccount.Any(c => c.GLAccountId == till.GLAccountId))
+                {
+                    output.Add(till);
+                }
+            }
+
+            return output;
+        }
+
+      public bool IsGlCategoryIsDeletable(int id)
+        {
+            return GetAll().Any(c => c.GLAccountId == id);
+        }
+	
+        
+	
     }
 }
+

@@ -41,6 +41,7 @@ namespace CBAOseno
             services.AddControllersWithViews();
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IUserDao, UserDao>();
+			services.AddTransient<ITellerDao, TellerDao>();
             services.AddTransient<IOperations, Operations>();
 			services.AddTransient<IGLAccountOperation, GLAccountOperation>();
 			services.AddTransient<IGLCategoryOperation, GLCategoryOperation>();

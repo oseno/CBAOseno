@@ -23,7 +23,8 @@ namespace CBAOseno.Data
         public DbSet<GLAccount> GLAccount { get; set; }
         public DbSet<Customer> Customer { get; set; }
         public DbSet<CustomerAccount> CustomerAccount { get; set; }
-
+		public DbSet<Teller> Teller { get; set; }
+		
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

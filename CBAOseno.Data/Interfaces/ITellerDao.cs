@@ -1,4 +1,5 @@
 ﻿using CBAOseno.Core.Models;
+using CBAOseno.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,22 +8,38 @@ using System.Threading.Tasks;
 
 namespace CBAOseno.Data.Interfaces
 {
-    public interface IOperations
+    public interface ITellerDao
     {
-        //Customer
-        Customer Save(Customer item);
-        Customer RetrieveById(int id);
-        Customer Delete(long id);
-        Customer UpdateCustomer(Customer userChanges);
-        IEnumerable<Customer> GetAllCustomers();
-        Customer GetRoles(Customer user);
-		int GenerateCustomerId(int id);
-        /*
-        Task<IEnumerable<UserRole>> GetAllAsync();
-         Task AddAsync(UserRole userrole);
-         Task<UserRole> GetByIdAsync(int roleId);
-         Task<UserRole> UpdateAsync(int roleId, UserRole newUserrole);
-        
-         */
+        //Teller
+        Task<List<ApplicationUser>> GetAllTellers();
+        Task<List<ApplicationUser>> GetTellersWithNoTills();
+        Task<List<Teller>> GetAllTellerDetails();
+        List<Teller> GetDbTellers();
+		//glACC things for TELLER
+		List<GLAccount> GetAll();
+
+        bool IsGlCategoryIsDeletable(int id);
+
+        GLAccount GetLastGlIn(Categories mainCategory);
+
+        bool AnyGlIn(Categories mainCategory);
+
+        GLAccount GetByName(string Name);
+
+        GLAccount GetById(int Id);
+
+        List<GLAccount> GetAllTills();
+
+        List<GLAccount> GetTillsWithoutTellers();
+
+        List<GLAccount> GetAllAssetAccounts();
+
+        List<GLAccount> GetAllIncomeAccounts();
+
+        List<GLAccount> GetAllLiabilityAccounts();
+
+        List<GLAccount> GetAllExpenseAccounts();
+
+        List<GLAccount> GetByMainCategory(Categories mainCategory);
     }
 }

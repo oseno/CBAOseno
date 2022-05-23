@@ -4,190 +4,115 @@ using CBAOseno.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+//using System.Web.Mvc;
 using System.Threading.Tasks;
 using CBAOseno.Core.Models;
 using CBAOseno.WebApi.ViewModels;
 using CBAOseno.Data;
+using System.Globalization;
+using System.Net;
+using System.Threading;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CBAOseno.WebApi.Controllers
 {
     public class TellerController : Controller
     {
-        public IActionResult Index()
+		private readonly ITellerDao _tellerdao;
+		private readonly ApplicationDbContext context;
+        public TellerController(ITellerDao tellerdao, ApplicationDbContext _context)
         {
-            return View();
+            _tellerdao = tellerdao;
+			context = _context;
         }
-		
-		[HttpGet]
-		public IActionResult Assign()
-        {
-            return View();
-        }
-		/*[HttpPost]
-		public IActionResult Assign()
-        {
-            return View();
-        }*/
-		[HttpGet]
-		public IActionResult Unassign()
-        {
-            return View();
-        }
-		/*[HttpPost]
-		public IActionResult Unassign()
-        {
-            return View();
-        }*/
-		
-		/*
-		
 
-namespace GCBA.Controllers
-	{
-    public class TellersController : Controller
-    {
-
-
-
-        private ApplicationDbContext db = new ApplicationDbContext();
-        TellerDataAccess tellerData = new TellerDataAccess();
-        private GlAccountDataAccess glData = new GlAccountDataAccess();
-
-        // GET: TillAccounts
         public async Task<ActionResult> Index()
         {
-            var tellerDetails = tellerData.GetAllTellerDetails();
-            var viewModel = new List<TillAccountViewModel>();
+            var tellerDetails = await _tellerdao.GetAllTellerDetails();
+            var viewModel = new List<TellerViewModel>();
 
             foreach (var detail in tellerDetails)
             {
-                TillAccountViewModel data;
-                if (detail.GlAccountID == 0)
+                TellerViewModel data;
+                if (detail.GLAccountId == 0)
                 {
-                    data = new TillAccountViewModel
+                    data = new TellerViewModel
                     {
-                        GLAccountName = "--", AccountBalance = "--", Username = db.Users.Find(detail.UserId).UserName,
-                        HasDetails = false, IsDeletable = false
+                        GLAccountName = "--",
+                        AccountBalance = "--",
+                        Email = context.Users.Find(detail.UserId).Email,
+                        HasDetails = false,
+                        IsDeletable = false
                     };
                     viewModel.Add(data);
                 }
                 else
                 {
-                    var applicationUser = db.Users.Find(detail.UserId);
-                    data = new TillAccountViewModel
+                    var applicationUser = context.Users.Find(detail.UserId);
+                    data = new TellerViewModel
                     {
-                        GLAccountName = detail.GlAccount.AccountName, Id = detail.Id,
-                        Username = applicationUser.UserName, AccountBalance = detail.GlAccount.AccountBalance
-                        .ToString(CultureInfo.InvariantCulture)
+                        GLAccountName = detail.GLAccount.GLAccountName,
+                        Id = detail.Id,
+                        Email = applicationUser.Email,
+                        AccountBalance = detail.GLAccount.GLAccountBalance.ToString(CultureInfo.InvariantCulture)
                     };
                     viewModel.Add(data);
                 }
             }
 
 
-            //var tillAccounts = db.TillAccounts.Include(t => t.GlAccount);
             return View(viewModel);
         }
 
-        // GET: TillAccounts/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Assign()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TillAccount tillAccount = await db.TillAccounts.FindAsync(id);
-            if (tillAccount == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tillAccount);
-        }
+            var testList = new List<string> { "a", "b", "c" };
 
-        // GET: TillAccounts/Create
-        public ActionResult Create()
-        {
-            var testList = new List<string> {"a", "b", "c"};
+            ViewBag.Users = new SelectList(_tellerdao.GetTellersWithNoTills().ToString(), "Id", "UserName");
+			Thread.Sleep(4000);
+            ViewBag.GlAccountID = new SelectList(_tellerdao.GetTillsWithoutTellers().ToString(), "ID", "AccountName");
 
-            ViewBag.Users = new SelectList(tellerData.GetTellersWithNoTills(), "Id", "UserName");
-            ViewBag.GlAccountID = new SelectList(glData.GetTillsWithoutTellers(), "ID", "AccountName");
             return View();
         }
 
-        // POST: TillAccounts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,UserId,GlAccountID")] TillAccount tillAccount)
+        public async Task<ActionResult> Assign([Bind("Id,UserId,GlAccountID")] Teller tillAccount)
         {
             if (ModelState.IsValid)
             {
-                db.TillAccounts.Add(tillAccount);
-                await db.SaveChangesAsync();
+                context.Teller.Add(tillAccount);
+                await context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.Users = new SelectList(tellerData.GetTellersWithNoTills(), "Id", "UserName", tillAccount.UserId);
-            ViewBag.GlAccountID = new SelectList(tellerData.GetTellersWithNoTills(), "ID", "AccountName", tillAccount.GlAccountID);
+            ViewBag.Users = new SelectList(_tellerdao.GetTellersWithNoTills().ToString(), "Id", "UserName", tillAccount.UserId);
+            ViewBag.GlAccountID = new SelectList(_tellerdao.GetTellersWithNoTills().ToString(), "ID", "AccountName", tillAccount.GLAccountId).ToString();
             return View(tillAccount);
         }
 
-        // GET: TillAccounts/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+       public async Task<ActionResult> Unassign(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return ViewBag.ErrorMessage = $"Teller with Id = {id} cannot be found"; ;
             }
-            TillAccount tillAccount = await db.TillAccounts.FindAsync(id);
+            Teller tillAccount = await context.Teller.FindAsync(id);
             if (tillAccount == null)
             {
-                return HttpNotFound();
-            }
-            ViewBag.GlAccountID = new SelectList(db.GlAccounts, "ID", "AccountName", tillAccount.GlAccountID);
-            return View(tillAccount);
-        }
-
-        // POST: TillAccounts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,UserId,GlAccountID")] TillAccount tillAccount)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(tillAccount).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            ViewBag.GlAccountID = new SelectList(db.GlAccounts, "ID", "AccountName", tillAccount.GlAccountID);
-            return View(tillAccount);
-        }
-
-        // GET: TillAccounts/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TillAccount tillAccount = await db.TillAccounts.FindAsync(id);
-            if (tillAccount == null)
-            {
-                return HttpNotFound();
+                return View("NotFound");
             }
             return View(tillAccount);
         }
 
-        // POST: TillAccounts/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Unassign")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            TillAccount tillAccount = await db.TillAccounts.FindAsync(id);
-            db.TillAccounts.Remove(tillAccount);
-            await db.SaveChangesAsync();
+            Teller tillAccount = await context.Teller.FindAsync(id);
+            context.Teller.Remove(tillAccount);
+            await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -195,12 +120,11 @@ namespace GCBA.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                context.Dispose();
             }
             base.Dispose(disposing);
         }
-    }
-}
-		*/
+       
+	   
     }
 }

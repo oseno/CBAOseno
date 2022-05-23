@@ -9,10 +9,10 @@ namespace CBAOseno.WebApi.ViewModels
     public class TellerViewModel
     {
         
-		/*public int Id { get; set; }
+		public int Id { get; set; }
 
 
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         [Display(Name = "Account Name")]
         public string GLAccountName { get; set; }
@@ -22,7 +22,7 @@ namespace CBAOseno.WebApi.ViewModels
 
         public bool IsDeletable { get; set; }
 
-        public bool HasDetails { get; set; }*/
+        public bool HasDetails { get; set; }
 		
     }
 }

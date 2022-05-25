@@ -31,7 +31,7 @@ namespace CBAOseno.Core.Models
         public decimal AccountBalance { get; set; }
 
         public virtual Customer NewCustomerId { get; set; }
-        public int CustomerId { get; set; }
+        //public int CustomerId { get; set; }
         //public virtual Customer Customer { get; set; }
 
 

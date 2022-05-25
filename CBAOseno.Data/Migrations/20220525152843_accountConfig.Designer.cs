@@ -4,14 +4,16 @@ using CBAOseno.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CBAOseno.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220525152843_accountConfig")]
+    partial class accountConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -153,35 +155,6 @@ namespace CBAOseno.Data.Migrations
                     b.HasKey("ConfigId");
 
                     b.ToTable("Configuration");
-
-                    b.HasData(
-                        new
-                        {
-                            ConfigId = 1,
-                            AccountType = 1,
-                            CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 25, 17, 52, 16, 353, DateTimeKind.Local).AddTicks(5899),
-                            InterestRate = 0.00m,
-                            MinBalance = 0.00m
-                        },
-                        new
-                        {
-                            ConfigId = 2,
-                            AccountType = 2,
-                            CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 25, 17, 52, 16, 516, DateTimeKind.Local).AddTicks(1096),
-                            InterestRate = 0.00m,
-                            MinBalance = 0.00m
-                        },
-                        new
-                        {
-                            ConfigId = 3,
-                            AccountType = 3,
-                            CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 25, 17, 52, 16, 516, DateTimeKind.Local).AddTicks(5957),
-                            InterestRate = 0.00m,
-                            MinBalance = 0.00m
-                        });
                 });
 
             modelBuilder.Entity("CBAOseno.Core.Models.Customer", b =>
@@ -348,6 +321,14 @@ namespace CBAOseno.Data.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            RoleName = "Super Admin",
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

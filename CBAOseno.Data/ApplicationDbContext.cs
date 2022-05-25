@@ -24,7 +24,7 @@ namespace CBAOseno.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<CustomerAccount> CustomerAccount { get; set; }
 		public DbSet<Teller> Teller { get; set; }
-		
+        public DbSet<Configuration> Configuration { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -43,14 +43,34 @@ namespace CBAOseno.Data
                 }
 
                 );*/
-            modelBuilder.Entity<UserRole>().HasData(
-                new UserRole
+            modelBuilder.Entity<Configuration>().HasData(
+                new Configuration
                 {
-                    RoleId = 1,
-                    RoleName = "Super Admin",
-                    Status = Core.Enums.Status.Enabled,
+                    ConfigId = 1,
+                    AccountType = Core.Enums.AccountType.Current,
+                    MinBalance = 0.00M,
+                    InterestRate = 0.00M,
+                    FinancialDate = DateTime.Now,
+                    CoT = 0.00M,
+                },
+                new
+                {
+                    ConfigId = 2,
+                    AccountType = Core.Enums.AccountType.Savings,
+                    MinBalance = 0.00M,
+                    InterestRate = 0.00M,
+                    FinancialDate = DateTime.Now,
+                    CoT = 0.00M,
+                },
+                new
+                {
+                    ConfigId = 3,
+                    AccountType = Core.Enums.AccountType.Loan,
+                    MinBalance = 0.00M,
+                    InterestRate = 0.00M,
+                    FinancialDate = DateTime.Now,
+                    CoT = 0.00M,
                 }
-
                 );
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())

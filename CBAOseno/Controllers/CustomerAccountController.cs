@@ -8,15 +8,18 @@ using System.Threading.Tasks;
 using CBAOseno.Core.Models;
 using CBAOseno.WebApi.ViewModels;
 using CBAOseno.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CBAOseno.WebApi.Controllers
 {
     public class CustomerAccountController : Controller
     {
         private readonly ICustomerAccountOperation _operations;
-        public CustomerAccountController(ICustomerAccountOperation operations)
+        private readonly ApplicationDbContext context;
+        public CustomerAccountController(ICustomerAccountOperation operations,  ApplicationDbContext context)
         {
             _operations = operations;
+			this.context = context;
         }
 
 
@@ -29,6 +32,7 @@ namespace CBAOseno.WebApi.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.NewCustomerId = new SelectList(context.Customer, "NewCustomerId");
             return View();
         }
 
@@ -41,14 +45,13 @@ namespace CBAOseno.WebApi.Controllers
                 {
                     AccountId = model.AccountId,
 					AccountType = model.AccountType,
-                    NewCustomerId = model.NewCustomerId,
-					//CustomerId =  new SelectList(db.Customer, "NewCustomerId","FirstName","LastName",model.CustomerId),
+                    //NewCustomerId =  new SelectList(context.Customer, "NewCustomerId","FirstName","LastName"),
                     AccountStatus = model.AccountStatus,
 					AccountName = model.AccountName,
 					AccountBalance = model.AccountBalance,
                     //AccountNumber = _operations.CreateAccountNumber(customerAccount.AccountType, customerAccount),
                 };
-
+                ViewBag.NewCustomerId = new SelectList(context.Customer, "NewCustomerId", model.NewCustomerId.ToString());
                 _operations.Save(newCustomerAccount);
                 //return RedirectToAction("index", new { id = newUser.Id });
                 return RedirectToAction("index", "CustomerAccount", new { area = "" });

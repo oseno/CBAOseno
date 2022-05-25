@@ -13,6 +13,7 @@ namespace CBAOseno.Core.Models
         [Key]
         public int GLAccountId { get; set; }
 		
+		[DataType(DataType.Currency)]
 		public double GLAccountBalance { get; set; }
 		
 		public long GLAccountCode { get; set; }

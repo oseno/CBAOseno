@@ -65,13 +65,13 @@ namespace CBAOseno.WebApi.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Assign()
+        public async Task<ActionResult> Assign()
         {
             var testList = new List<string> { "a", "b", "c" };
 
-            ViewBag.Users = new SelectList(_tellerdao.GetTellersWithNoTills().ToString(), "Id", "UserName");
+            ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "UserName");
 			Thread.Sleep(4000);
-            ViewBag.GlAccountID = new SelectList(_tellerdao.GetTillsWithoutTellers().ToString(), "ID", "AccountName");
+            ViewBag.GlAccountID = new SelectList(await _tellerdao.GetTillsWithoutTellers(), "ID", "AccountName");
 
             return View();
         }
@@ -87,8 +87,8 @@ namespace CBAOseno.WebApi.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.Users = new SelectList(_tellerdao.GetTellersWithNoTills().ToString(), "Id", "UserName", tillAccount.UserId);
-            ViewBag.GlAccountID = new SelectList(_tellerdao.GetTellersWithNoTills().ToString(), "ID", "AccountName", tillAccount.GLAccountId).ToString();
+            ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "UserName", tillAccount.UserId);
+            ViewBag.GlAccountID = new SelectList(await _tellerdao.GetTellersWithNoTills(), "ID", "AccountName", tillAccount.GLAccountId).ToString();
             return View(tillAccount);
         }
 

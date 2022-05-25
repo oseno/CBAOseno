@@ -4,14 +4,16 @@ using CBAOseno.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CBAOseno.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220524152455_getNewRoleClaims")]
+    partial class getNewRoleClaims
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,62 +130,6 @@ namespace CBAOseno.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("CBAOseno.Core.Models.Configuration", b =>
-                {
-                    b.Property<int>("ConfigId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountType")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("CoT")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("FinancialDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("InterestRate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("MinBalance")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("ConfigId");
-
-                    b.ToTable("Configuration");
-
-                    b.HasData(
-                        new
-                        {
-                            ConfigId = 1,
-                            AccountType = 1,
-                            CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 25, 17, 52, 16, 353, DateTimeKind.Local).AddTicks(5899),
-                            InterestRate = 0.00m,
-                            MinBalance = 0.00m
-                        },
-                        new
-                        {
-                            ConfigId = 2,
-                            AccountType = 2,
-                            CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 25, 17, 52, 16, 516, DateTimeKind.Local).AddTicks(1096),
-                            InterestRate = 0.00m,
-                            MinBalance = 0.00m
-                        },
-                        new
-                        {
-                            ConfigId = 3,
-                            AccountType = 3,
-                            CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 25, 17, 52, 16, 516, DateTimeKind.Local).AddTicks(5957),
-                            InterestRate = 0.00m,
-                            MinBalance = 0.00m
-                        });
-                });
-
             modelBuilder.Entity("CBAOseno.Core.Models.Customer", b =>
                 {
                     b.Property<int>("CustomerId")
@@ -237,12 +183,12 @@ namespace CBAOseno.Data.Migrations
                     b.Property<int>("AccountType")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NewCustomerIdCustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.HasKey("AccountId");
 
-                    b.HasIndex("NewCustomerIdCustomerId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("CustomerAccount");
                 });
@@ -348,6 +294,14 @@ namespace CBAOseno.Data.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("UserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            RoleName = "Super Admin",
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -458,7 +412,9 @@ namespace CBAOseno.Data.Migrations
                 {
                     b.HasOne("CBAOseno.Core.Models.Customer", "NewCustomerId")
                         .WithMany("CustomerAccount")
-                        .HasForeignKey("NewCustomerIdCustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("NewCustomerId");
                 });

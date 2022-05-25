@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CBAOseno.Core.Enums
+@model CBAOseno.WebApi.ViewModels.EditConfigurationViewModel
+
+@{
+    ViewData["Title"] = "Savings";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Edit Savings</h1>
+</div>
+
+
+<div class="">
+      <form method="post">
+        <div asp-validation-summary = "All" class = "text-danger"></div>
+
+
+          <div class="text-right">
+     <a asp-area="" asp-controller="Configuration" asp-action="Index" class="btn btn-primary">Back</a>
+     <button type="submit" class="btn btn-outline-primary">Update</button>
+    </div>
+    <br />  
+
+     <div class="form-row">
+	 <div class="form-group col-md-4">
+          <label asp-for = "AccountType" class="control-label">Account Type</label>
+     <select asp-for = "AccountType" class = "form-control" asp-items="Html.GetEnumSelectList<AccountType>()" disabled>
+        <option value="@AccountType.Savings"></option>
+      </select>  
+       </div>
+       <div class="form-group col-md-4">
+       <label asp-for = "MinBalance" class="control-label">Minimum Balance</label>
+      <input asp-for = "MinBalance" class="form-control" />
+      <span asp-validation-for = "MinBalance" class = "text-danger"></span>
+      </div>
+	  
+      <div class="form-group col-md-4">
+       <label asp-for = "InterestRate" class="control-label">Credit Interest Rate</label>
+      <input asp-for = "InterestRate" class="form-control" />
+      <span asp-validation-for = "InterestRate" class = "text-danger"></span>
+      </div>
+
+	 
+	</div>
+	
+
+    </form>
+ </div>

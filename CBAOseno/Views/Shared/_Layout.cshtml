@@ -77,14 +77,17 @@
                       Configuration
                         </a>
                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" asp-controller="Customer" asp-action="Index">
-                        Current Account
+                        <a class="dropdown-item" asp-controller="Configuration" asp-action="Current" asp-route-id="1">
+                        Edit Current Account
                         </a>
-                        <a class="dropdown-item" asp-controller="CustomerAccount" asp-action="Index">
-                            Savings Account
+                        <a class="dropdown-item" asp-controller="Configuration" asp-action="Savings" asp-route-id="2">
+                            Edit Savings Account
                         </a>
-						<a class="dropdown-item" asp-controller="Customer" asp-action="Index">
-                        Loan Account
+						<a class="dropdown-item" asp-controller="Configuration" asp-action="Loan" asp-route-id="3">
+                        Edit Loan Account
+                        </a>
+						<a class="dropdown-item" asp-controller="Configuration" asp-action="Index">
+                        View all Configurations
                         </a>
                         </div>
                         </li>

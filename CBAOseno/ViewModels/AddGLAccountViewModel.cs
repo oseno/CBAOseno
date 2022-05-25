@@ -13,6 +13,7 @@ namespace CBAOseno.WebApi.ViewModels
 
         public string GLAccountName { get; set; }
 		
+		[DataType(DataType.Currency)]
 		public double GLAccountBalance { get; set; }
 		
 		public long GLAccountCode { get; set; }

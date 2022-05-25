@@ -1,0 +1,53 @@
+﻿@using CBAOseno.Core.Models
+@model IEnumerable<Configuration>
+
+@{
+    ViewData["Title"] = "Configuration";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Account Configuration</h1>
+</div>
+<br />
+
+<!-- <div class="text-right">
+    
+     <a asp-area="" asp-controller="Configuration" asp-action="Create" class="btn btn-primary">Add Configuration</a>
+</div> -->
+
+
+@if(Model.Count() > 0)
+    {
+<table class="table table-bordered table-striped" style='width:100%'>
+
+<thead class="thead-light">
+    <tr>
+		<th>Account Type</th>
+		<th>Minimum Account Balance</th>
+        <th>Interest Rate</th>
+        
+    </tr>
+</thead>
+<tbody>
+     @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestRate)
+            </td>
+        </tr>
+}
+</tbody>
+</table>
+}
+    else
+    {
+        <p>No configuration defined yet</p>
+    }

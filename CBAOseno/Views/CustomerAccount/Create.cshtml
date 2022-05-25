@@ -41,8 +41,8 @@
 	 <div class="form-row">
       <div class="form-group col-md-6">
        <label asp-for = "NewCustomerId" class="control-label">Customer Id</label>
-      <input asp-for = "NewCustomerId" class="form-control" />
-      <span asp-validation-for = "NewCustomerId" class = "text-danger"></span>
+	   <select asp-for = "NewCustomerId" class="form-control" asp-items="@ViewBag.NewCustomerId"></select>
+	   <span asp-validation-for = "NewCustomerId" class = "text-danger"></span>
       </div> 
 
 	 <div class="form-group col-md-6">

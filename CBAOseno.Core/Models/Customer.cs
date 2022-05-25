@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CBAOseno.Core.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CBAOseno.Core.Models
 {
@@ -19,5 +20,7 @@ namespace CBAOseno.Core.Models
         public string Email { get; set; }
         public Status Status { get; set; }
         public ICollection<CustomerAccount> CustomerAccount { get; set; }
+
+        
     }
 }

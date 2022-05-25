@@ -16,6 +16,9 @@ namespace CBAOseno.Data.Interfaces
         Task<List<Teller>> GetAllTellerDetails();
         List<Teller> GetDbTellers();
 		//glACC things for TELLER
+        Task<List<GLAccount>> GetAllTills();
+        Task<List<GLAccount>> GetTillsWithoutTellers();
+		
 		List<GLAccount> GetAll();
 
         bool IsGlCategoryIsDeletable(int id);
@@ -27,10 +30,6 @@ namespace CBAOseno.Data.Interfaces
         GLAccount GetByName(string Name);
 
         GLAccount GetById(int Id);
-
-        List<GLAccount> GetAllTills();
-
-        List<GLAccount> GetTillsWithoutTellers();
 
         List<GLAccount> GetAllAssetAccounts();
 

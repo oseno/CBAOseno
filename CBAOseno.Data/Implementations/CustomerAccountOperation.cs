@@ -63,10 +63,6 @@ namespace CBAOseno.Data.Implementations
             return customerAccount;
         }
 
-        public CustomerAccount GetRoles(CustomerAccount customerAccount)
-        {
-            throw new NotImplementedException();
-        }
 
         public CustomerAccount UpdateCustomerAccount(CustomerAccount customerAccountChanges)
         {
@@ -81,13 +77,11 @@ namespace CBAOseno.Data.Implementations
             var customerAccounts = db.CustomerAccount.ToList();
             return customerAccounts;
         }
-		 public static class AccountTypes
-    {
+		public static class AccountTypes
+		{
         public static long SavingsId = 10000000;
         public static long CurrentId = 20000000;
         public static long LoanId = 30000000;
-
-        
-    }
+		}
     }
 }

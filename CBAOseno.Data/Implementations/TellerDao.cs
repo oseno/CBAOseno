@@ -33,7 +33,8 @@ namespace CBAOseno.Data.Implementations
             //adding all tellers without a till account
             foreach (var teller in tellersWithoutTill)
             {
-                output.Add(new Teller { UserId = teller.Id, GLAccountId = 0 });
+                //output.Add(new Teller { UserId = teller.Id, GLAccountId = 0 });
+                output.Add(new Teller { UserId = teller.Id });
             }
             //adding all tellers with a till account
             output.AddRange(tillsWithTellers);
@@ -90,8 +91,27 @@ namespace CBAOseno.Data.Implementations
 
             return result;
         }
-		//gl implementation
-		 public bool AnyGlIn(Categories mainCategory)
+        //gl implementation
+        public async Task<List<GLAccount>> GetTillsWithoutTellers()
+        {
+            var output = new List<GLAccount>();
+            var allTills = await GetAllTills();
+            var tillAccount = context.Teller.ToList();
+
+            foreach (var till in allTills)
+            {
+                    output.Add(till);
+            }
+
+            return output;
+        }
+        public async Task<List<GLAccount>> GetAllTills()
+        {
+            //var tills = context.GLAccount.Where(c => c.GLAccountName.ToLower().Contains("till")).ToList();
+            var tills = context.GLAccount.Where(c => c.GLAccountName.ToLower().Contains("till")).ToList();
+            return tills;
+        }
+        public bool AnyGlIn(Categories mainCategory)
         {
             return context.GLAccount.Any(gl => gl.GLCategory.Categories == mainCategory);
         }
@@ -130,11 +150,7 @@ namespace CBAOseno.Data.Implementations
             return output;
         }
 
-        public List<GLAccount> GetAllTills()
-        {
-            var tills = context.GLAccount.Where(c => c.GLAccountName.ToLower().Contains("till")).ToList();
-            return tills;
-        }
+        
 
         public GLAccount GetById(int Id)
         {
@@ -161,22 +177,6 @@ namespace CBAOseno.Data.Implementations
             return context.GLAccount.Where(g => g.GLCategory.Categories == mainCategory).OrderByDescending(a => a.GLAccountId).First();
         }
 
-        public List<GLAccount> GetTillsWithoutTellers()
-        {
-            var output = new List<GLAccount>();
-            var allTills = GetAllTills();
-            var tillAccount = context.Teller.ToList();
-
-            foreach (var till in allTills)
-            {
-                if (tillAccount.Any(c => c.GLAccountId == till.GLAccountId))
-                {
-                    output.Add(till);
-                }
-            }
-
-            return output;
-        }
 
       public bool IsGlCategoryIsDeletable(int id)
         {

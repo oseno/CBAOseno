@@ -14,6 +14,7 @@ namespace CBAOseno.Data.Interfaces
         Task<List<ApplicationUser>> GetAllTellers();
         Task<List<ApplicationUser>> GetTellersWithNoTills();
         Task<List<Teller>> GetAllTellerDetails();
+		Task<List<ApplicationUser>> GetTellersWithTills();
         List<Teller> GetDbTellers();
 		//glACC things for TELLER
         Task<List<GLAccount>> GetAllTills();

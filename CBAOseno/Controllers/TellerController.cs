@@ -55,7 +55,7 @@ namespace CBAOseno.WebApi.Controllers
                         GLAccountName = detail.GLAccount.GLAccountName,
                         Id = detail.Id,
                         Email = applicationUser.Email,
-                        AccountBalance = detail.GLAccount.GLAccountBalance.ToString(CultureInfo.InvariantCulture)
+                        AccountBalance = detail.GLAccount.GLAccountBalance.ToString(),
                     };
                     viewModel.Add(data);
                 }
@@ -86,7 +86,7 @@ namespace CBAOseno.WebApi.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "UserName", tillAccount.UserId);
+            ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "Email", tillAccount.UserId);
             ViewBag.GlAccounts = new SelectList(await _tellerdao.GetTellersWithNoTills(), "ID", "AccountName", tillAccount.GLAccountId);
             return View(tillAccount);
         }

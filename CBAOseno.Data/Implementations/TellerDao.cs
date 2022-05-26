@@ -27,15 +27,16 @@ namespace CBAOseno.Data.Implementations
         }
 		  public async Task<List<Teller>> GetAllTellerDetails()
         {
-            var output = new List<Teller>();
+            //var output = new List<Teller>();
+			List<Teller> output = new List<Teller>();
             var tillsWithTellers = GetDbTellers();
             var tellersWithoutTill = await GetTellersWithNoTills();
-            Thread.Sleep(7000);
+            //Thread.Sleep(7000);
             //adding all tellers without a till account
             foreach (var teller in tellersWithoutTill)
             {
                 output.Add(new Teller { UserId = teller.Id, GLAccountId = 0 });
-                //output.Add(new Teller { UserId = teller.Id });
+                //  output.Add(new Teller { UserId = teller.Id });
             }
             //adding all tellers with a till account
             output.AddRange(tillsWithTellers);
@@ -96,12 +97,12 @@ namespace CBAOseno.Data.Implementations
         public async Task<List<GLAccount>> GetTillsWithoutTellers()
         {
             var output = new List<GLAccount>();
-            var allTills = await GetAllTills();
+            List<GLAccount> allTills = await GetAllTills();
             var tillAccount = context.Teller.ToList();
 
             foreach (var till in allTills)
             {
-               if (!tillAccount.Any(c=>c.GLAccountId==till.GLAccountId))
+               if (!tillAccount.Any(c => c.GLAccountId == till.GLAccountId))
                { 
                     output.Add(till);
               }
@@ -109,6 +110,20 @@ namespace CBAOseno.Data.Implementations
 
             return output;
         }
+		public async Task<List<ApplicationUser>> GetTellersWithTills()
+		{
+			var tellers = await GetAllTellers();
+			var tillAccounts = context.Teller.ToList();
+			var result = new List<ApplicationUser>();
+			foreach (var teller in tellers)
+			{
+				if(tillAccounts.Any(c => c.UserId == teller.Id))
+				{
+					result.Add(teller);
+				}
+			}
+			return result;
+		}
         public async Task<List<GLAccount>> GetAllTills()
         {
             //var tills = context.GLAccount.Where(c => c.GLAccountName.ToLower().Contains("till")).ToList();

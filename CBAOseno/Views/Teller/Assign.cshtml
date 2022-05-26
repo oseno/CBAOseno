@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GLAccountId, "Select A Till account")
             <div class="col-md-10">
-				@Html.DropDownList("GLAccountId", ViewBag.GLAccounts as SelectList, "Select Please", htmlAttributes: new { @class = "form-control" })
+				@Html.DropDownListFor(model => model.GLAccountId, null, "Select Please", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
            </div>
         </div>

@@ -70,7 +70,7 @@ namespace CBAOseno.WebApi.Controllers
         {
            ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "Email");
 			Thread.Sleep(4000);
-            ViewBag.GlAccountID = new SelectList(await _tellerdao.GetTillsWithoutTellers(), "ID", "AccountName");
+            ViewBag.GlAccountId = new SelectList(await _tellerdao.GetTillsWithoutTellers(), "GLAccountId", "GLAccountName");
 
             return View();
         }
@@ -87,7 +87,7 @@ namespace CBAOseno.WebApi.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "Email", tillAccount.UserId);
-            ViewBag.GlAccountID = new SelectList(await _tellerdao.GetTellersWithNoTills(), "ID", "AccountName", tillAccount.GLAccountId);
+            ViewBag.GlAccountId = new SelectList(await _tellerdao.GetTellersWithNoTills(), "GLAccountId", "GLAccountName", tillAccount.GLAccountId);
             return View(tillAccount);
         }
 

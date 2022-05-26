@@ -91,6 +91,7 @@ namespace CBAOseno.WebApi.Controllers
                 Gender = customer.Gender,
                 Email = customer.Email,
                 Status = customer.Status,
+                NewCustomerId = customer.NewCustomerId,
                 CustomerAccount = customer.CustomerAccount,
             };
             return View(editUserViewModel);
@@ -109,6 +110,7 @@ namespace CBAOseno.WebApi.Controllers
                 customer.Gender = model.Gender;
                 customer.Email = model.Email;
                 customer.Status = model.Status;
+                customer.NewCustomerId = model.NewCustomerId;
                 customer.CustomerAccount = model.CustomerAccount;
 
                 Customer updatedCustomer = _operations.UpdateCustomer(customer);

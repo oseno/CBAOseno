@@ -65,13 +65,12 @@ namespace CBAOseno.WebApi.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
         public async Task<ActionResult> Assign()
         {
-            var testList = new List<string> { "a", "b", "c" };
-
-            ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "UserName");
+           ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "Email");
 			Thread.Sleep(4000);
-            ViewBag.GlAccountID = new SelectList(await _tellerdao.GetTillsWithoutTellers(), "ID", "AccountName");
+            ViewBag.GlAccounts = new SelectList(await _tellerdao.GetTillsWithoutTellers(), "ID", "AccountName");
 
             return View();
         }
@@ -79,7 +78,7 @@ namespace CBAOseno.WebApi.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Assign([Bind("Id,UserId,GlAccountID")] Teller tillAccount)
+        public async Task<ActionResult> Assign(Teller tillAccount)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +87,7 @@ namespace CBAOseno.WebApi.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Users = new SelectList(await _tellerdao.GetTellersWithNoTills(), "Id", "UserName", tillAccount.UserId);
-            ViewBag.GlAccountID = new SelectList(await _tellerdao.GetTellersWithNoTills(), "ID", "AccountName", tillAccount.GLAccountId).ToString();
+            ViewBag.GlAccounts = new SelectList(await _tellerdao.GetTellersWithNoTills(), "ID", "AccountName", tillAccount.GLAccountId);
             return View(tillAccount);
         }
 

@@ -32,7 +32,7 @@ namespace CBAOseno.WebApi.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.NewCustomerId = new SelectList(context.Customer, "NewCustomerId");
+            ViewBag.NewCustomerId = new SelectList(context.Customer, "NewCustomerId", "FirstName", "LastName");
             return View();
         }
 
@@ -51,7 +51,7 @@ namespace CBAOseno.WebApi.Controllers
 					AccountBalance = model.AccountBalance,
                     //AccountNumber = _operations.CreateAccountNumber(customerAccount.AccountType, customerAccount),
                 };
-                ViewBag.NewCustomerId = new SelectList(context.Customer, "NewCustomerId", model.NewCustomerId.ToString());
+                ViewBag.NewCustomerId = new SelectList(context.Customer, "NewCustomerId", "FirstName", "LastName", model.NewCustomerId.ToString());
                 _operations.Save(newCustomerAccount);
                 //return RedirectToAction("index", new { id = newUser.Id });
                 return RedirectToAction("index", "CustomerAccount", new { area = "" });

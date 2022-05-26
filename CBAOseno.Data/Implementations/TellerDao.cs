@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CBAOseno.Services.Interfaces;
 using CBAOseno.Services.Implementations;
+using Microsoft.EntityFrameworkCore;
 
 namespace CBAOseno.Data.Implementations
 {
@@ -33,8 +34,8 @@ namespace CBAOseno.Data.Implementations
             //adding all tellers without a till account
             foreach (var teller in tellersWithoutTill)
             {
-                //output.Add(new Teller { UserId = teller.Id, GLAccountId = 0 });
-                output.Add(new Teller { UserId = teller.Id });
+                output.Add(new Teller { UserId = teller.Id, GLAccountId = 0 });
+                //output.Add(new Teller { UserId = teller.Id });
             }
             //adding all tellers with a till account
             output.AddRange(tillsWithTellers);
@@ -71,7 +72,7 @@ namespace CBAOseno.Data.Implementations
 
         public List<Teller> GetDbTellers()
         {
-            return context.Teller.ToList();
+            return context.Teller.Include(x => x.GLAccount).ToList();
         }
 
         public async Task<List<ApplicationUser>> GetTellersWithNoTills()
@@ -100,7 +101,10 @@ namespace CBAOseno.Data.Implementations
 
             foreach (var till in allTills)
             {
+               if (!tillAccount.Any(c=>c.GLAccountId==till.GLAccountId))
+               { 
                     output.Add(till);
+              }
             }
 
             return output;

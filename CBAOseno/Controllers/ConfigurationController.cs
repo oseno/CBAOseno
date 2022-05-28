@@ -14,9 +14,11 @@ namespace CBAOseno.WebApi.Controllers
     public class ConfigurationController : Controller
     {
         private readonly IConfigDao _operations;
-        public ConfigurationController(IConfigDao operations)
+        private readonly ApplicationDbContext context;
+        public ConfigurationController(IConfigDao operations, ApplicationDbContext _context)
         {
             _operations = operations;
+			context = _context;
         }
 
 
@@ -42,7 +44,7 @@ namespace CBAOseno.WebApi.Controllers
                     ConfigId = model.ConfigId,
                     InterestRate = model.InterestRate,
                     MinBalance = model.MinBalance,
-                    AccountType = model.AccountType,
+                    accountTType = model.accountTType,
                     FinancialDate = model.FinancialDate,
                 };
                 _operations.Save(newConfiguration);
@@ -60,7 +62,7 @@ namespace CBAOseno.WebApi.Controllers
             {
                 MinBalance = Configuration.MinBalance,
 				InterestRate = Configuration.InterestRate,
-                //AccountType = Configuration.AccountType,
+                //accountTType = Configuration.accountTType,
             };
             return View(editUserViewModel);
         }*/
@@ -73,7 +75,7 @@ namespace CBAOseno.WebApi.Controllers
             {
                 MinBalance = Configuration.MinBalance,
                 InterestRate = Configuration.InterestRate,
-                AccountType = Configuration.AccountType,
+                accountTType = Configuration.accountTType,
             };
             return View(editUserViewModel);
         }
@@ -86,7 +88,7 @@ namespace CBAOseno.WebApi.Controllers
                 Configuration Configuration = _operations.RetrieveById(model.Id);
                 Configuration.InterestRate = model.InterestRate;
                 Configuration.MinBalance = model.MinBalance;
-                Configuration.AccountType = model.AccountType;
+                Configuration.accountTType = model.accountTType;
 
                 Configuration updatedConfiguration = _operations.UpdateConfiguration(Configuration);
 
@@ -103,7 +105,7 @@ namespace CBAOseno.WebApi.Controllers
             {
                 MinBalance = Configuration.MinBalance,
                 InterestRate = Configuration.InterestRate,
-                AccountType = Configuration.AccountType,
+                accountTType = Configuration.accountTType,
             };
             return View(editUserViewModel);
         }
@@ -116,7 +118,37 @@ namespace CBAOseno.WebApi.Controllers
                 Configuration Configuration = _operations.RetrieveById(model.Id);
                 Configuration.InterestRate = model.InterestRate;
                 Configuration.MinBalance = model.MinBalance;
-                Configuration.AccountType = model.AccountType;
+                Configuration.accountTType = model.accountTType;
+
+                Configuration updatedConfiguration = _operations.UpdateConfiguration(Configuration);
+
+                return RedirectToAction("index", "Configuration", new { area = "" });
+            }
+
+            return View(model);
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var Configuration = _operations.RetrieveById(id);
+            EditConfigurationViewModel editUserViewModel = new EditConfigurationViewModel()
+            {
+                MinBalance = Configuration.MinBalance,
+                InterestRate = Configuration.InterestRate,
+                accountTType = Configuration.accountTType,
+            };
+            return View(editUserViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditConfigurationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Configuration Configuration = _operations.RetrieveById(model.Id);
+                Configuration.InterestRate = model.InterestRate;
+                Configuration.MinBalance = model.MinBalance;
+                Configuration.accountTType = model.accountTType;
 
                 Configuration updatedConfiguration = _operations.UpdateConfiguration(Configuration);
 
@@ -133,7 +165,7 @@ namespace CBAOseno.WebApi.Controllers
             {
                 MinBalance = Configuration.MinBalance,
                 InterestRate = Configuration.InterestRate,
-                AccountType = Configuration.AccountType,
+                accountTType = Configuration.accountTType,
             };
             return View(editUserViewModel);
         }
@@ -146,7 +178,7 @@ namespace CBAOseno.WebApi.Controllers
                 Configuration Configuration = _operations.RetrieveById(model.Id);
                 Configuration.InterestRate = model.InterestRate;
                 Configuration.MinBalance = model.MinBalance;
-                Configuration.AccountType = model.AccountType;
+                Configuration.accountTType = model.accountTType;
 
                 Configuration updatedConfiguration = _operations.UpdateConfiguration(Configuration);
 
@@ -154,6 +186,31 @@ namespace CBAOseno.WebApi.Controllers
             }
 
             return View(model);
+        }
+		
+		[HttpGet]
+		public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return ViewBag.ErrorMessage = $"configuration with Id = {id} cannot be found"; ;
+            }
+            Configuration config = await context.Configuration.FindAsync(id);
+            if (config == null)
+            {
+                return View("NotFound");
+            }
+            return View(config);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            Configuration config = await context.Configuration.FindAsync(id);
+            context.Configuration.Remove(config);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }

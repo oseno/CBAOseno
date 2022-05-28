@@ -6,12 +6,14 @@ using CBAOseno.Core.Models;
 
 namespace CBAOseno.WebApi.ViewModels
 {
-    public class AddConfigurationViewModel
-    {
-        [Key]
+	public class AddConfigurationViewModel
+	{
+		[Key]
 		public int ConfigId { get; set; }
-		
-        public AccountType AccountType { get; set; }
+
+		public AccountType AccountType { get; set; }
+
+		public string accountTType { get; set;}
 		
 		[Display(Name = "Minimum Balance")]
         [DataType(DataType.Currency)]

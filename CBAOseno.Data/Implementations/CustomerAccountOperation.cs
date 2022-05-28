@@ -16,29 +16,32 @@ namespace CBAOseno.Data.Implementations
         {
             this.db = db;
         }
-		/*public string CreateAccountNumber(AccountType accountType, CustomerAccount customerAccount)
+		public string CreateAccountNumber(AccountType accounttype, CustomerAccount customerAccount)
         {
-            
-            string longId = String.Format("00{0}", r.ToString("D9"));
-            if (accountType == AccountType.Savings)
+			Random rd = new Random();
+			long rand_num = rd.Next(100,999);
+			CustomerAccount customerId = customerAccount;
+			string stringId = customerAccount.NewCustomerId;
+           // string longId = String.Format("00{0}", r =.ToString("D9"));
+            if (accounttype == AccountType.Savings)
             {
-                string accountNumber = AccountTypes.SavingsId + longId;
+                string accountNumber = AccountTypes.SavingsId + stringId + rand_num.ToString();
                 return accountNumber.ToString();
             }
 
-            if (accountType == AccountType.Current)
+            if (accounttype == AccountType.Current)
             {
-                string accountNumber = AccountTypes.CurrentId + longId;
+                string accountNumber = AccountTypes.CurrentId + stringId + rand_num.ToString();
                 return accountNumber.ToString();
             }
-            if (accountType == AccountType.Loan)
+            if (accounttype == AccountType.Loan)
             {
-                string accountNumber = AccountTypes.LoanId + longId;
+                string accountNumber = AccountTypes.LoanId + stringId + rand_num.ToString();
                 return accountNumber.ToString();
             }
 
             return "";
-        }*/
+        }
         public CustomerAccount Delete(long id)
         {
             CustomerAccount customerAccount = db.CustomerAccount.Find(id);
@@ -79,9 +82,9 @@ namespace CBAOseno.Data.Implementations
         }
 		public static class AccountTypes
 		{
-        public static long SavingsId = 10000000;
-        public static long CurrentId = 20000000;
-        public static long LoanId = 30000000;
+        public static long SavingsId = 100;
+        public static long CurrentId = 200;
+        public static long LoanId = 300;
 		}
     }
 }

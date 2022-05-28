@@ -4,14 +4,16 @@ using CBAOseno.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CBAOseno.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220527074158_editCostumerAccountId")]
+    partial class editCostumerAccountId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,9 +152,6 @@ namespace CBAOseno.Data.Migrations
                     b.Property<decimal>("MinBalance")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("accountTType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ConfigId");
 
                     b.ToTable("Configuration");
@@ -163,30 +162,27 @@ namespace CBAOseno.Data.Migrations
                             ConfigId = 1,
                             AccountType = 1,
                             CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 28, 21, 45, 37, 859, DateTimeKind.Local).AddTicks(8558),
+                            FinancialDate = new DateTime(2022, 5, 27, 8, 41, 56, 670, DateTimeKind.Local).AddTicks(9051),
                             InterestRate = 0.00m,
-                            MinBalance = 0.00m,
-                            accountTType = "Current"
+                            MinBalance = 0.00m
                         },
                         new
                         {
                             ConfigId = 2,
                             AccountType = 2,
                             CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 28, 21, 45, 37, 886, DateTimeKind.Local).AddTicks(2214),
+                            FinancialDate = new DateTime(2022, 5, 27, 8, 41, 56, 678, DateTimeKind.Local).AddTicks(7525),
                             InterestRate = 0.00m,
-                            MinBalance = 0.00m,
-                            accountTType = "Savings"
+                            MinBalance = 0.00m
                         },
                         new
                         {
                             ConfigId = 3,
                             AccountType = 3,
                             CoT = 0.00m,
-                            FinancialDate = new DateTime(2022, 5, 28, 21, 45, 37, 886, DateTimeKind.Local).AddTicks(3944),
+                            FinancialDate = new DateTime(2022, 5, 27, 8, 41, 56, 679, DateTimeKind.Local).AddTicks(178),
                             InterestRate = 0.00m,
-                            MinBalance = 0.00m,
-                            accountTType = "Loan"
+                            MinBalance = 0.00m
                         });
                 });
 
@@ -209,8 +205,8 @@ namespace CBAOseno.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NewCustomerId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NewCustomerId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -246,8 +242,8 @@ namespace CBAOseno.Data.Migrations
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("NewCustomerId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NewCustomerId")
+                        .HasColumnType("int");
 
                     b.HasKey("AccountId");
 

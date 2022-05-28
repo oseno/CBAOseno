@@ -32,12 +32,13 @@ namespace CBAOseno.WebApi.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.NewCustomerId = new SelectList(context.Customer, "NewCustomerId", "FirstName", "LastName");
+            //ViewBag.NewCustomers = new SelectList(context.Customer, "CustomerId", "NewCustomerId" + "LastName" + "FirstName");
+            ViewBag.NewCustomers = new SelectList(context.Customer, "CustomerId", "NewCustomerId");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(AddCustomerAccountViewModel model)
+        public IActionResult Create(AddCustomerAccountViewModel model, CustomerAccount customerAccount)
         {
             if (ModelState.IsValid)
             {
@@ -45,13 +46,13 @@ namespace CBAOseno.WebApi.Controllers
                 {
                     AccountId = model.AccountId,
 					AccountType = model.AccountType,
-                    //NewCustomerId =  new SelectList(context.Customer, "NewCustomerId","FirstName","LastName"),
                     AccountStatus = model.AccountStatus,
 					AccountName = model.AccountName,
 					AccountBalance = model.AccountBalance,
-                    //AccountNumber = _operations.CreateAccountNumber(customerAccount.AccountType, customerAccount),
-                };
-                ViewBag.NewCustomerId = new SelectList(context.Customer, "NewCustomerId", "FirstName", "LastName", model.NewCustomerId.ToString());
+                    AccountNumber = _operations.CreateAccountNumber(customerAccount.AccountType, customerAccount),
+                   NewCustomerId =
+                    ViewBag.NewCustomers = new SelectList(context.Customer, "CustomerId", "NewCustomerId", model.NewCustomerId),
+            };
                 _operations.Save(newCustomerAccount);
                 //return RedirectToAction("index", new { id = newUser.Id });
                 return RedirectToAction("index", "CustomerAccount", new { area = "" });
@@ -106,6 +107,30 @@ namespace CBAOseno.WebApi.Controllers
             }
 
             return View(model);
+        }
+			[HttpGet]
+		public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return ViewBag.ErrorMessage = $"account with Id = {id} cannot be found"; ;
+            }
+            CustomerAccount config = await context.CustomerAccount.FindAsync(id);
+            if (config == null)
+            {
+                return View("NotFound");
+            }
+            return View(config);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            CustomerAccount config = await context.CustomerAccount.FindAsync(id);
+            context.CustomerAccount.Remove(config);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }

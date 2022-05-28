@@ -28,7 +28,7 @@ namespace CBAOseno.WebApi.ViewModels
         [DataType(DataType.Currency)]
         public decimal AccountBalance { get; set; }
 		
-		public int NewCustomerId { get; set; }
+		public string NewCustomerId { get; set; }
         //public virtual Customer Customer { get; set; }
         public virtual Customer Customer { get; set; }
     }

@@ -16,12 +16,32 @@ namespace CBAOseno.Data.Implementations
         {
             this.db = db;
         }
-		public int GenerateCustomerId(int id)
+		//public int GenerateCustomerId(int id)
+		public string GenerateCustomerId(string id)
         {
-			var now = DateTime.Now;
-			var zeroDate = DateTime.MinValue.AddHours(now.Hour).AddMinutes(now.Minute).AddSeconds(now.Second).AddMilliseconds(now.Millisecond);
-			int newCustomerId = (int)(zeroDate.Ticks / 10000);
-            return newCustomerId;
+			long newId = 0;
+            var customerList = db.Customer.ToList().OrderByDescending(c=>c.CustomerId);
+
+            if (customerList.Any())
+            {
+                var lastId = customerList.First().CustomerId;
+                var stringLastId = lastId.ToString();
+                //Get the main id
+                newId = lastId + 1;
+            }
+			string stringId = newId.ToString("D4");
+			return stringId;
+			//int newid = 0000;
+			//if (newid < 1000)
+			//{
+				//newid++.ToString("D4");
+			//}
+			//var now = DateTime.Now;
+			//var zeroDate = DateTime.MinValue.AddHours(now.Hour).AddMinutes(now.Minute).AddSeconds(now.Second).AddMilliseconds(now.Millisecond);
+			//int newCustomerId = (int)(zeroDate.Ticks / 10000);
+			//int newCustomerId = newid;
+            //return newCustomerId;
+			
         }
         public Customer Delete(long id)
         {
@@ -47,10 +67,6 @@ namespace CBAOseno.Data.Implementations
             return customer;
         }
 
-        public Customer GetRoles(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
 
         public Customer UpdateCustomer(Customer customerChanges)
         {

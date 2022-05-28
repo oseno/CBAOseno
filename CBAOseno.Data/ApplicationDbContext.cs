@@ -48,6 +48,7 @@ namespace CBAOseno.Data
                 {
                     ConfigId = 1,
                     AccountType = Core.Enums.AccountType.Current,
+					accountTType = "Current",
                     MinBalance = 0.00M,
                     InterestRate = 0.00M,
                     FinancialDate = DateTime.Now,
@@ -57,6 +58,7 @@ namespace CBAOseno.Data
                 {
                     ConfigId = 2,
                     AccountType = Core.Enums.AccountType.Savings,
+					accountTType = "Savings",
                     MinBalance = 0.00M,
                     InterestRate = 0.00M,
                     FinancialDate = DateTime.Now,
@@ -66,6 +68,7 @@ namespace CBAOseno.Data
                 {
                     ConfigId = 3,
                     AccountType = Core.Enums.AccountType.Loan,
+					accountTType = "Loan",
                     MinBalance = 0.00M,
                     InterestRate = 0.00M,
                     FinancialDate = DateTime.Now,

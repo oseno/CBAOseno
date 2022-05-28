@@ -127,7 +127,7 @@ namespace CBAOseno.Data.Implementations
         public async Task<List<GLAccount>> GetAllTills()
         {
             //var tills = context.GLAccount.Where(c => c.GLAccountName.ToLower().Contains("till")).ToList();
-            var tills = context.GLAccount.Where(c => c.GLAccountName.ToLower().Contains("till")).ToList();
+            var tills = context.GLAccount.Where(c => c.Categories == Categories.Asset).ToList();
             return tills;
         }
         public bool AnyGlIn(Categories mainCategory)

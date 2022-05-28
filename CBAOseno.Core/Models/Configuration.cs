@@ -15,6 +15,8 @@ namespace CBAOseno.Core.Models
 		
         public AccountType AccountType { get; set; }
 		
+		public string accountTType { get; set; }
+		
 		[Display(Name = "Minimum Balance")]
         [DataType(DataType.Currency)]
 		public decimal MinBalance { get; set; }

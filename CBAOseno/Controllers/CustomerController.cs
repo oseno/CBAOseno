@@ -14,9 +14,11 @@ namespace CBAOseno.WebApi.Controllers
     public class CustomerController : Controller
     {
         private readonly IOperations _operations;
-        public CustomerController(IOperations operations)
+        private readonly ApplicationDbContext context;
+        public CustomerController(IOperations operations, ApplicationDbContext context)
         {
             _operations = operations;
+            this.context = context;
         }
 
 
@@ -119,6 +121,31 @@ namespace CBAOseno.WebApi.Controllers
             }
 
             return View(model);
+        }
+		
+		[HttpGet]
+		public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return ViewBag.ErrorMessage = $"account with Id = {id} cannot be found"; ;
+            }
+            Customer config = await context.Customer.FindAsync(id);
+            if (config == null)
+            {
+                return View("NotFound");
+            }
+            return View(config);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            Customer config = await context.Customer.FindAsync(id);
+            context.Customer.Remove(config);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }

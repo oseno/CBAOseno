@@ -22,7 +22,6 @@
 
 <thead class="thead-light">
     <tr>
-		<th>S/n</th>
         <th>Account Number</th>
         <th>Customer ID</th>
 		<th>Account Name</th>
@@ -37,7 +36,6 @@
     @foreach(var item in Model)
                 {
                     <tr>
-                        <td>@item.AccountId</td>
 						<td>@item.AccountNumber</td>
                         <td>@item.NewCustomerId</td>
 						<td>@item.AccountName</td>
@@ -47,7 +45,7 @@
                         <td>
                             <a asp-controller="CustomerAccount" asp-action="Edit" asp-route-id="@item.AccountId" class="btn btn-outline-success">Edit</a>
                            <a asp-controller="CustomerAccount" asp-action="Detail" asp-route-id="@item.AccountId" class="btn btn-outline-primary">Details</a>
-                           <a asp-controller="CustomerAccount" asp-action="Detail" asp-route-id="@item.AccountId" class="btn btn-outline-danger">Delete</a>
+                           <a asp-controller="CustomerAccount" asp-action="Delete" asp-route-id="@item.AccountId" class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
                 }

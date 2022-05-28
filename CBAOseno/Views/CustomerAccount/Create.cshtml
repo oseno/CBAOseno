@@ -1,9 +1,7 @@
 ﻿@using CBAOseno.Core.Enums
 @model CBAOseno.WebApi.ViewModels.AddCustomerAccountViewModel
 
-@{
-    ViewData["Title"] = "Create Customer Account";
-}
+
 
 <div class="text-center">
     <h1 class="display-4">Create Customer Account</h1>
@@ -38,13 +36,12 @@
       <span asp-validation-for = "AccountStatus" class = "text-danger"></span>
       </div>
 	</div>
-	 <div class="form-row">
-      <div class="form-group col-md-6">
-       <label asp-for = "NewCustomerId" class="control-label">Customer Id</label>
-	   <select asp-for = "NewCustomerId" class="form-control" asp-items="@ViewBag.NewCustomerId"></select>
-	   <span asp-validation-for = "NewCustomerId" class = "text-danger"></span>
-      </div> 
-
+<div class="form-row">
+            @Html.LabelFor(model => model.NewCustomerId, "Customer ID")
+            <div class="form-group col-md-6">
+                @Html.DropDownList("NewCustomerId", ViewBag.NewCustomers as SelectList, "Select Please", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.NewCustomerId, "", new { @class = "text-danger" })
+            </div>
 	 <div class="form-group col-md-6">
      <label asp-for = "AccountType" class="control-label">Account Type</label>
       <select asp-for = "AccountType" class = "form-control" asp-items="Html.GetEnumSelectList<AccountType>()">

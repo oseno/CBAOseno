@@ -15,8 +15,7 @@ namespace CBAOseno.Data.Interfaces
         Customer Delete(long id);
         Customer UpdateCustomer(Customer userChanges);
         IEnumerable<Customer> GetAllCustomers();
-        Customer GetRoles(Customer user);
-		int GenerateCustomerId(int id);
+		string GenerateCustomerId(string id);
         /*
         Task<IEnumerable<UserRole>> GetAllAsync();
          Task AddAsync(UserRole userrole);

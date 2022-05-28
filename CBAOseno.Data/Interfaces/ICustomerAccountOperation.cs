@@ -16,6 +16,6 @@ namespace CBAOseno.Data.Interfaces
         CustomerAccount Delete(long id);
         CustomerAccount UpdateCustomerAccount(CustomerAccount userChanges);
         IEnumerable<CustomerAccount> GetAllCustomerAccounts();
-       //string CreateAccountNumber(AccountType accountType, CustomerAccount customerAccount);
+       string CreateAccountNumber(AccountType accounttype, CustomerAccount customerAccount);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -30,9 +31,9 @@ namespace CBAOseno.Core.Models
         [DataType(DataType.Currency)]
         public decimal AccountBalance { get; set; }
 
-        public virtual Customer NewCustomerId { get; set; }
-        //public int CustomerId { get; set; }
-        //public virtual Customer Customer { get; set; }
+        //public virtual Customer NewCustomerId { get; set; }
+        public string NewCustomerId { get; set; }
+        public virtual Customer Customer { get; set; }
 
 
     }

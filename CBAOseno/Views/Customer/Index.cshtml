@@ -43,7 +43,7 @@
                         <td>
                             <a asp-controller="Customer" asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-outline-success">Edit</a>
                            <a asp-controller="Customer" asp-action="Detail" asp-route-id="@item.CustomerId" class="btn btn-outline-primary">Details</a>
-                           <a asp-controller="Customer" asp-action="Delete" asp-route-id="@item.CustomerId" class="btn btn-outline-danger" type = "submit">Delete</a>
+						   <a asp-controller="Customer" asp-action="CreateAcc" asp-route-id="@item.CustomerId" class="btn btn-outline-secondary">Create Account</a>
                         </td>
                     </tr>
                 }

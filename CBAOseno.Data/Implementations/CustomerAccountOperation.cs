@@ -19,7 +19,7 @@ namespace CBAOseno.Data.Implementations
 		public string CreateAccountNumber(AccountType accounttype, CustomerAccount customerAccount)
         {
 			Random rd = new Random();
-			long rand_num = rd.Next(100,999);
+			long rand_num = rd.Next(1000,9999);
 			CustomerAccount customerId = customerAccount;
 			string stringId = customerAccount.NewCustomerId;
            // string longId = String.Format("00{0}", r =.ToString("D9"));

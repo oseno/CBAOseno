@@ -50,8 +50,7 @@ namespace CBAOseno.WebApi.Controllers
 					AccountName = model.AccountName,
 					AccountBalance = model.AccountBalance,
                     AccountNumber = _operations.CreateAccountNumber(customerAccount.AccountType, customerAccount),
-                   NewCustomerId =
-                    ViewBag.NewCustomers = new SelectList(context.Customer, "CustomerId", "NewCustomerId", model.NewCustomerId),
+                   NewCustomerId = model.NewCustomerId,
             };
                 _operations.Save(newCustomerAccount);
                 //return RedirectToAction("index", new { id = newUser.Id });

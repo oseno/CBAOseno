@@ -11,7 +11,7 @@
 </div>
 <div class="text-right">
     
-     <a asp-area="" asp-controller="CustomerAccount" asp-action="Create" class="btn btn-primary">Add new customer</a>
+     <a asp-area="" asp-controller="CustomerAccount" asp-action="Create" class="btn btn-primary">Add new account</a>
 </div>
 <br />
 
@@ -23,7 +23,6 @@
 <thead class="thead-light">
     <tr>
         <th>Account Number</th>
-        <th>Customer ID</th>
 		<th>Account Name</th>
 		<th>Account Status</th>
         <th>Account Balance</th>
@@ -37,7 +36,6 @@
                 {
                     <tr>
 						<td>@item.AccountNumber</td>
-                        <td>@item.NewCustomerId</td>
 						<td>@item.AccountName</td>
                         <td>@item.AccountStatus</td>
 						<td>@item.AccountBalance</td>
@@ -55,6 +53,6 @@
 }
     else
     {
-        <p>No items created yet</p>
+        <p>No accounts created yet</p>
     }
 

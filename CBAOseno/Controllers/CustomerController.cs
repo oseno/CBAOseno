@@ -15,10 +15,12 @@ namespace CBAOseno.WebApi.Controllers
     {
         private readonly IOperations _operations;
         private readonly ApplicationDbContext context;
-        public CustomerController(IOperations operations, ApplicationDbContext context)
+		private readonly ICustomerAccountOperation _accoperations;
+        public CustomerController(IOperations operations, ApplicationDbContext context, ICustomerAccountOperation accoperations)
         {
             _operations = operations;
             this.context = context;
+			_accoperations = accoperations;
         }
 
 
@@ -147,5 +149,8 @@ namespace CBAOseno.WebApi.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+		
+
+
     }
 }

@@ -1,9 +1,7 @@
 ﻿@using CBAOseno.Core.Enums
 @model CBAOseno.WebApi.ViewModels.AddCustomerAccountViewModel
 
-@{
-    ViewData["Title"] = "Customer Accounts";
-}
+
 
 <div class="text-center">
     <h1 class="display-4">Create Customer Account</h1>
@@ -24,27 +22,21 @@
 
 
    <div class="form-row">
-       <div class="form-group col-md-6">
+       <div class="form-group col-md-4">
        <label asp-for = "AccountName" class="control-label">Account Name</label>
       <input asp-for = "AccountName" class="form-control" />
       <span asp-validation-for = "AccountName" class = "text-danger"></span>
       </div>
 
-	 <div class="form-group col-md-6">
+	 <div class="form-group col-md-4">
      <label asp-for = "AccountStatus" class="control-label">Account Status</label>
       <select asp-for = "AccountStatus" class = "form-control" asp-items="Html.GetEnumSelectList<AccountStatus>()">
         <option value="">Please select</option>
       </select>
       <span asp-validation-for = "AccountStatus" class = "text-danger"></span>
       </div>
-	</div>
-<div class="form-row">
-<div class="form-group col-md-6">
-            @Html.LabelFor(model => model.NewCustomerId, "Customer ID")
-                @Html.DropDownList("NewCustomerId", ViewBag.NewCustomers as SelectList, "Select Please", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.NewCustomerId, "", new { @class = "text-danger" })
-            </div>
-	 <div class="form-group col-md-4">
+	  
+	   <div class="form-group col-md-4">
      <label asp-for = "AccountType" class="control-label">Account Type</label>
       <select asp-for = "AccountType" class = "form-control" asp-items="Html.GetEnumSelectList<AccountType>()">
         <option value="">Please select</option>
@@ -52,6 +44,8 @@
       <span asp-validation-for = "AccountType" class = "text-danger"></span>
       </div>
 	</div>
+           
+	
      </form>
         
 	
